@@ -8,90 +8,88 @@
     <!-- CSS compiled by Sass containing Bootstrap 5.1.3 -->
     <link rel="stylesheet" href="./public/css/style.css" />
 
-    <!-- Font Awesome CSS CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
-      integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
-      crossorigin="anonymous"
-    />
-
     <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
     <title>Les petits plats</title>
   </head>
   <body>
     <!-- Header -->
-    <header role="banner" class="container text-center mt-3">
+    <header role="banner" class="container text-center mt-5">
       <a class="navbar-brand" href="./index.html">
-        <img src="./assets/images/logo.png" alt="Le logo du site" />
-        <h1>Les petits plats</h1>
+        <!-- <img src="./assets/images/logo.png" alt="Le logo du site" /> -->
+        <img src="/assets/icons/logo.svg" alt="Le logo du site" />
+        <h1 class="m-0">Les petits plats</h1>
       </a>
     </header>
 
-    <main>
-      <section class="search-section container mb-3">
+    <main class="mt-n2">
+      <section class="search-section container">
         <form class="form-inline">
           <div class="input-group">
             <input
               type="text"
-              class="form-control"
-              placeholder="Username"
+              class="form-control bg-light border-0 text-light ps-4 pe-0 py-4"
+              placeholder="Rechercher une recette"
               aria-label="Username"
               aria-describedby="basic-addon1"
             />
-            <div class="input-group-append">
-              <span class="input-group-text"
-                ><i class="fas fa-search"></i
-              ></span>
-            </div>
+            <span class="input-group-text bg-light border-0 rounded-end pe-3"
+              ><img
+                src="./assets/icons/search.svg"
+                class="w-75 ms-auto"
+                alt=""
+                aria-hidden="true"
+            /></span>
           </div>
         </form>
-        <section class="filters-section container my-3">
-          Filters section
-        </section>
+        <div class="filters-applied-container container my-3 bg-secondary">
+          Filters applied container
+        </div>
+        <div class="filters-search-container container my-3 bg-warning">
+          Filter search section
+        </div>
       </section>
       <section class="recipes-section container">
-        <div class="row">
-          <div class="col-12 col-lg-4">
-            <div class="card">
+        <div class="row gx-md-5 gx-lg-3 gx-xl-4 gx-xxl-5">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card border-0 bg-light">
+              <img
+                src="./assets/images/recipe.jpg"
+                alt="instructor"
+                class="card-img-top"
+              />
               <div class="card-body">
-                <img
-                  src="./assets/images/logo.png"
-                  alt="instructor"
-                  class="card-img-top"
-                />
                 <h2 class="card-title">Limonade de Coco</h2>
-                <p class="card-text">
+                <p class="card-text overflow-hidden">
                   Limonade de CocoLimonade de CocoLimonade de CocoLimonade de
                   CocoLimonade de Coco
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-12 col-lg-4">
-            <div class="card">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card border-0 bg-light">
               <img
-                src="./assets/images/logo.png"
+                src="./assets/images/recipe.jpg"
                 alt="instructor"
                 class="card-img-top"
               />
               <div class="card-body">
                 <h2 class="card-title">Poisson cru</h2>
-                <p class="card-text">
+                <p class="card-text overflow-hidden">
                   Poisson cruPoisson cruPoisson cruPoisson cruPoisson cruPoisson
                   cruPoisson cru
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-12 col-lg-4">
-            <div class="card">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card border-0 bg-light">
               <img
-                src="./assets/images/logo.png"
+                src="./assets/images/recipe.jpg"
                 alt="instructor"
                 class="card-img-top"
               />
-              <div class="card-body">
+              <div class="card-body overflow-hidden">
                 <h2 class="card-title">Poulet réunionais</h2>
                 <p class="card-text">
                   Poulet réunionaisPoulet réunionaisPoulet réunionaisPoulet
@@ -103,24 +101,6 @@
         </div>
       </section>
     </main>
-
-    <div class="bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <ul class="list-inline text-center">
-              <li class="list-inline-item"><a href="#">À propos</a></li>
-              <li class="list-inline-item">&middot;</li>
-              <li class="list-inline-item"><a href="#">Vie privée</a></li>
-              <li class="list-inline-item">&middot;</li>
-              <li class="list-inline-item">
-                <a href="#">Conditions d'utilisations</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
   </body>
 
   <!-- JavaScript Bundle with Popper -->
