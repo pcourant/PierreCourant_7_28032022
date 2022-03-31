@@ -13,29 +13,30 @@
   </head>
   <body>
     <!-- Header -->
-    <header role="banner" class="container text-center mt-5">
-      <a class="navbar-brand" href="./index.html">
+    <header role="banner" class="container text-center">
+      <a class="navbar-brand d-block mx-0 mt-5 mb-3 p-0" href="./index.html">
         <!-- <img src="./assets/images/logo.png" alt="Le logo du site" /> -->
         <img src="/assets/icons/logo.svg" alt="Le logo du site" />
-        <h1 class="m-0">Les petits plats</h1>
+        <h1 class="m-0 p-0">Les petits plats</h1>
       </a>
     </header>
 
-    <main class="mt-n2">
+    <main class="">
       <section class="search-section container">
         <form class="form-inline">
           <div class="input-group">
             <input
               type="text"
-              class="form-control bg-light border-0 text-light ps-4 pe-0 py-4"
+              class="form-control bg-light border-0 text-light flex-fill ps-4 pe-0 py-4"
               placeholder="Rechercher une recette"
               aria-label="Username"
               aria-describedby="basic-addon1"
             />
-            <span class="input-group-text bg-light border-0 rounded-end pe-3"
+            <span
+              class="input-group-text bg-light border-0 rounded-end px-3 justify-content-end"
               ><img
                 src="./assets/icons/search.svg"
-                class="w-75 ms-auto"
+                class="w-75 m-0"
                 alt=""
                 aria-hidden="true"
             /></span>
@@ -49,79 +50,496 @@
         </div>
       </section>
       <section class="recipes-section container">
-        <div class="row gx-md-5 gx-lg-3 gx-xl-4 gx-xxl-5">
-          <div class="col-12 col-md-6 col-lg-4">
+        <div class="row g-4 g-md-4 g-lg-5 g-xl-4 g-xxl-5">
+          <div class="col-12 col-md-6 col-xl-4">
             <article class="card border-0 bg-light">
-              <img
-                src="./assets/images/recipe.jpg"
-                alt=""
-                class="card-img-top"
-              />
-              <div class="card-body container">
-                <div class="row p-0">
-                  <div class="col-7">
-                    <h2 class="card-title col m-0 p-0">Limonade de Coco</h2>
+              <a href="">
+                <img
+                  src="./assets/images/recipe.jpg"
+                  alt=""
+                  class="card-img-top"
+                />
+              </a>
+              <div class="card-body container p-0 m-0">
+                <div class="card-body__title-time row w-100 m-0">
+                  <div class="col-8 p-0">
+                    <h2
+                      class="card-title col m-0 p-0 fw-normal d-inline-block align-text-bottom"
+                    >
+                      LIMONADE DE COCO
+                    </h2>
                   </div>
-                  <div class="col-3 ms-auto p-0">
+                  <div class="card-body__time col-4 p-0 text-end">
                     <img
                       src="./assets/icons/time.svg"
                       width="20px"
                       height="20px"
                       alt=""
-                      class="d-inline-block align-middle"
+                      class="d-inline-block"
                     />
-                    <p class="card-text d-inline-block fw-bold">10min</p>
+                    <p class="card-text d-inline-block fw-bold ms-1">110 min</p>
                   </div>
                 </div>
-                <div class="row p-0">
-                  <div class="col">
-                    <p class="card-text small m-0">Lait de coco: 400mL</p>
-                    <p class="card-text small m-0">Lait de coco: 400mL</p>
-                    <p class="card-text small m-0">Lait de coco: 400mL</p>
-                    <p class="card-text small m-0">Lait de coco: 400mL</p>
-                    <p class="card-text small m-0">Lait de coco: 400mL</p>
-                    <p class="card-text small m-0">Lait de coco: 400mL</p>
+                <div class="card-body__recipe row w-100 m-0">
+                  <div class="col m-0 p-0 overflow-hidden">
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
                   </div>
-                  <div class="col overflow-hidden">
-                    <p class="card-text small m-0">
+                  <div class="card-body__recipe__instructions col m-0 p-0">
+                    <p class="card-text small lh-sm overflow-hidden">
                       Mettre les glaçons à votre goût dans le blender, ajouter
                       le lait, la crème de coco, le jus de 2 citrons et le
-                      sucre. Mixer jusqu'à avoir la consistence désirée
+                      sucre. Mixer jusqu'à avoir la consistence désirée / Mettre
+                      les glaçons à votre goût dans le blender, ajouter le lait,
+                      la crème de coco, le jus de 2 citrons et le sucre. Mixer
+                      jusqu'à avoir la consistence désirée / Mettre les glaçons
+                      à votre goût dans le blender, ajouter le lait, la crème de
+                      coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir
+                      la consistence désirée
                     </p>
                   </div>
                 </div>
               </div>
             </article>
           </div>
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6 col-xl-4">
             <article class="card border-0 bg-light">
-              <img
-                src="./assets/images/recipe.jpg"
-                alt="instructor"
-                class="card-img-top"
-              />
-              <div class="card-body">
-                <h2 class="card-title">Poisson cru</h2>
-                <p class="card-text overflow-hidden">
-                  Poisson cruPoisson cruPoisson cruPoisson cruPoisson cruPoisson
-                  cruPoisson cru
-                </p>
+              <a href="">
+                <img
+                  src="./assets/images/recipe.jpg"
+                  alt=""
+                  class="card-img-top"
+                />
+              </a>
+              <div class="card-body container p-0 m-0">
+                <div class="card-body__title-time row w-100 m-0">
+                  <div class="col-8 p-0">
+                    <h2
+                      class="card-title col m-0 p-0 fw-normal d-inline-block align-text-bottom"
+                    >
+                      Limonade de Coco
+                    </h2>
+                  </div>
+                  <div class="card-body__time col-4 p-0 text-end">
+                    <img
+                      src="./assets/icons/time.svg"
+                      width="20px"
+                      height="20px"
+                      alt=""
+                      class="d-inline-block"
+                    />
+                    <p class="card-text d-inline-block fw-bold ms-1">110 min</p>
+                  </div>
+                </div>
+                <div class="card-body__recipe row w-100 m-0">
+                  <div class="col m-0 p-0 overflow-hidden">
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                  </div>
+                  <div class="card-body__recipe__instructions col m-0 p-0">
+                    <p class="card-text small lh-sm overflow-hidden">
+                      Mettre les glaçons à votre goût dans le blender, ajouter
+                      le lait, la crème de coco, le jus de 2 citrons et le
+                      sucre. Mixer jusqu'à avoir la consistence désirée / Mettre
+                      les glaçons à votre goût dans le blender, ajouter le lait,
+                      la crème de coco, le jus de 2 citrons et le sucre. Mixer
+                      jusqu'à avoir la consistence désirée / Mettre les glaçons
+                      à votre goût dans le blender, ajouter le lait, la crème de
+                      coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir
+                      la consistence désirée
+                    </p>
+                  </div>
+                </div>
               </div>
             </article>
           </div>
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6 col-xl-4">
             <article class="card border-0 bg-light">
-              <img
-                src="./assets/images/recipe.jpg"
-                alt="instructor"
-                class="card-img-top"
-              />
-              <div class="card-body overflow-hidden">
-                <h2 class="card-title">Poulet réunionais</h2>
-                <p class="card-text">
-                  Poulet réunionaisPoulet réunionaisPoulet réunionaisPoulet
-                  réunionaisPoulet réunionaisPoulet réunionaisPoulet réunionais
-                </p>
+              <a href="">
+                <img
+                  src="./assets/images/recipe.jpg"
+                  alt=""
+                  class="card-img-top"
+                />
+              </a>
+              <div class="card-body container p-0 m-0">
+                <div class="card-body__title-time row w-100 m-0">
+                  <div class="col-8 p-0">
+                    <h2
+                      class="card-title col m-0 p-0 fw-normal d-inline-block align-text-bottom"
+                    >
+                      Limonade de Coco
+                    </h2>
+                  </div>
+                  <div class="card-body__time col-4 p-0 text-end">
+                    <img
+                      src="./assets/icons/time.svg"
+                      width="20px"
+                      height="20px"
+                      alt=""
+                      class="d-inline-block"
+                    />
+                    <p class="card-text d-inline-block fw-bold ms-1">110 min</p>
+                  </div>
+                </div>
+                <div class="card-body__recipe row w-100 m-0">
+                  <div class="col m-0 p-0 overflow-hidden">
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                  </div>
+                  <div class="card-body__recipe__instructions col m-0 p-0">
+                    <p class="card-text small lh-sm overflow-hidden">
+                      Mettre les glaçons à votre goût dans le blender, ajouter
+                      le lait, la crème de coco, le jus de 2 citrons et le
+                      sucre. Mixer jusqu'à avoir la consistence désirée / Mettre
+                      les glaçons à votre goût dans le blender, ajouter le lait,
+                      la crème de coco, le jus de 2 citrons et le sucre. Mixer
+                      jusqu'à avoir la consistence désirée / Mettre les glaçons
+                      à votre goût dans le blender, ajouter le lait, la crème de
+                      coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir
+                      la consistence désirée
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="card border-0 bg-light">
+              <a href="">
+                <img
+                  src="./assets/images/recipe.jpg"
+                  alt=""
+                  class="card-img-top"
+                />
+              </a>
+              <div class="card-body container p-0 m-0">
+                <div class="card-body__title-time row w-100 m-0">
+                  <div class="col-8 p-0">
+                    <h2
+                      class="card-title col m-0 p-0 fw-normal d-inline-block align-text-bottom"
+                    >
+                      Limonade de Coco
+                    </h2>
+                  </div>
+                  <div class="card-body__time col-4 p-0 text-end">
+                    <img
+                      src="./assets/icons/time.svg"
+                      width="20px"
+                      height="20px"
+                      alt=""
+                      class="d-inline-block"
+                    />
+                    <p class="card-text d-inline-block fw-bold ms-1">110 min</p>
+                  </div>
+                </div>
+                <div class="card-body__recipe row w-100 m-0">
+                  <div class="col m-0 p-0 overflow-hidden">
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                  </div>
+                  <div class="card-body__recipe__instructions col m-0 p-0">
+                    <p class="card-text small lh-sm overflow-hidden">
+                      Mettre les glaçons à votre goût dans le blender, ajouter
+                      le lait, la crème de coco, le jus de 2 citrons et le
+                      sucre. Mixer jusqu'à avoir la consistence désirée / Mettre
+                      les glaçons à votre goût dans le blender, ajouter le lait,
+                      la crème de coco, le jus de 2 citrons et le sucre. Mixer
+                      jusqu'à avoir la consistence désirée / Mettre les glaçons
+                      à votre goût dans le blender, ajouter le lait, la crème de
+                      coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir
+                      la consistence désirée
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="card border-0 bg-light">
+              <a href="">
+                <img
+                  src="./assets/images/recipe.jpg"
+                  alt=""
+                  class="card-img-top"
+                />
+              </a>
+              <div class="card-body container p-0 m-0">
+                <div class="card-body__title-time row w-100 m-0">
+                  <div class="col-8 p-0">
+                    <h2
+                      class="card-title col m-0 p-0 fw-normal d-inline-block align-text-bottom"
+                    >
+                      Limonade de Coco
+                    </h2>
+                  </div>
+                  <div class="card-body__time col-4 p-0 text-end">
+                    <img
+                      src="./assets/icons/time.svg"
+                      width="20px"
+                      height="20px"
+                      alt=""
+                      class="d-inline-block"
+                    />
+                    <p class="card-text d-inline-block fw-bold ms-1">110 min</p>
+                  </div>
+                </div>
+                <div class="card-body__recipe row w-100 m-0">
+                  <div class="col m-0 p-0 overflow-hidden">
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                  </div>
+                  <div class="card-body__recipe__instructions col m-0 p-0">
+                    <p class="card-text small lh-sm overflow-hidden">
+                      Mettre les glaçons à votre goût dans le blender, ajouter
+                      le lait, la crème de coco, le jus de 2 citrons et le
+                      sucre. Mixer jusqu'à avoir la consistence désirée / Mettre
+                      les glaçons à votre goût dans le blender, ajouter le lait,
+                      la crème de coco, le jus de 2 citrons et le sucre. Mixer
+                      jusqu'à avoir la consistence désirée / Mettre les glaçons
+                      à votre goût dans le blender, ajouter le lait, la crème de
+                      coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir
+                      la consistence désirée
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="card border-0 bg-light">
+              <a href="">
+                <img
+                  src="./assets/images/recipe.jpg"
+                  alt=""
+                  class="card-img-top"
+                />
+              </a>
+              <div class="card-body container p-0 m-0">
+                <div class="card-body__title-time row w-100 m-0">
+                  <div class="col-8 p-0">
+                    <h2
+                      class="card-title col m-0 p-0 fw-normal d-inline-block align-text-bottom"
+                    >
+                      Limonade de Coco
+                    </h2>
+                  </div>
+                  <div class="card-body__time col-4 p-0 text-end">
+                    <img
+                      src="./assets/icons/time.svg"
+                      width="20px"
+                      height="20px"
+                      alt=""
+                      class="d-inline-block"
+                    />
+                    <p class="card-text d-inline-block fw-bold ms-1">110 min</p>
+                  </div>
+                </div>
+                <div class="card-body__recipe row w-100 m-0">
+                  <div class="col m-0 p-0 overflow-hidden">
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                    <p class="card-text small fw-bold m-0">
+                      Lait de coco: <span class="fw-normal">400mL</span>
+                    </p>
+                  </div>
+                  <div class="card-body__recipe__instructions col m-0 p-0">
+                    <p class="card-text small lh-sm overflow-hidden">
+                      Mettre les glaçons à votre goût dans le blender, ajouter
+                      le lait, la crème de coco, le jus de 2 citrons et le
+                      sucre. Mixer jusqu'à avoir la consistence désirée / Mettre
+                      les glaçons à votre goût dans le blender, ajouter le lait,
+                      la crème de coco, le jus de 2 citrons et le sucre. Mixer
+                      jusqu'à avoir la consistence désirée / Mettre les glaçons
+                      à votre goût dans le blender, ajouter le lait, la crème de
+                      coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir
+                      la consistence désirée
+                    </p>
+                  </div>
+                </div>
               </div>
             </article>
           </div>
