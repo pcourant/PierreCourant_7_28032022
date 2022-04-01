@@ -53,14 +53,16 @@ function recipeFactory(data) {
     const cardBody = document.createElement("div");
     article.appendChild(cardBody);
     cardBody.classList.add("container");
-    cardBody.classList.add("card-img-top");
+    cardBody.classList.add("card-body");
+    cardBody.classList.add("flex-grow-0");
+    cardBody.classList.add("overflow-hidden");
     cardBody.classList.add("p-0");
     cardBody.classList.add("m-0");
 
     // Création de la rangée "Titre et Temps" --------------------
     const cardBodyTitleTime = document.createElement("div");
     cardBody.appendChild(cardBodyTitleTime);
-    cardBodyTitleTime.classList.add("container");
+    cardBodyTitleTime.classList.add("card-body__title-time");
     cardBodyTitleTime.classList.add("row");
     cardBodyTitleTime.classList.add("w-100");
     cardBodyTitleTime.classList.add("m-0");
@@ -93,17 +95,17 @@ function recipeFactory(data) {
     const iconTime = document.createElement("img");
     columnTime.appendChild(iconTime);
     iconTime.setAttribute("src", "./assets/icons/time.svg");
-    iconTime.setAttribute("alt", ""); // alt vide car image décorative
-    iconTime.setAttribute("aria-hidden", "true");
     iconTime.setAttribute("width", "20px");
     iconTime.setAttribute("height", "20px");
+    iconTime.setAttribute("alt", ""); // alt vide car image décorative
+    iconTime.setAttribute("aria-hidden", "true");
     iconTime.classList.add("d-inline-block");
     iconTime.classList.add("align-text-bottom");
     // Ajout du temps de la préparation
     const timeParagraph = document.createElement("p");
-    columnTitle.appendChild(timeParagraph);
+    columnTime.appendChild(timeParagraph);
     timeParagraph.classList.add("card-text");
-    timeParagraph.classList.add("ms-1");
+    timeParagraph.classList.add("ms-2");
     timeParagraph.classList.add("fw-bold");
     timeParagraph.classList.add("d-inline-block");
     timeParagraph.classList.add("align-text-bottom");
@@ -113,6 +115,9 @@ function recipeFactory(data) {
     // Création de la rangée "Ingrédients et Instructions" -------------------
     const cardBodyIngredientsInstructions = document.createElement("div");
     cardBody.appendChild(cardBodyIngredientsInstructions);
+    cardBodyIngredientsInstructions.classList.add(
+      "card-body__ingredients-instructions"
+    );
     cardBodyIngredientsInstructions.classList.add("row");
     cardBodyIngredientsInstructions.classList.add("w-100");
     cardBodyIngredientsInstructions.classList.add("m-0");
@@ -123,7 +128,6 @@ function recipeFactory(data) {
     columnIngredients.classList.add("col");
     columnIngredients.classList.add("m-0");
     columnIngredients.classList.add("p-0");
-    columnIngredients.classList.add("overflow-hidden");
     // Ajout des ingrédients
     ingredients.forEach((element) => {
       const ingredientParagraph = document.createElement("p");
@@ -153,7 +157,6 @@ function recipeFactory(data) {
     instructionsParagraph.classList.add("card-text");
     instructionsParagraph.classList.add("small");
     instructionsParagraph.classList.add("lh-sm");
-    instructionsParagraph.classList.add("overflow-hidden");
     instructionsParagraph.textContent = description;
 
     //Sauvegarde the DOM element

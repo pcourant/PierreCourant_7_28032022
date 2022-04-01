@@ -13,15 +13,19 @@
 //   padding-bottom: 1.333rem;
 // }
 
-article.card {
+article {
   width: 100%;
   height: 20.22rem;
 
   // padding-bottom: 20px;
 }
 
-article.card .card-img-top {
+article .card-img-top {
   height: 9.88rem;
+}
+
+article .card-body {
+  height: 9.5rem; // 20.22rem - 9.88rem - 15px (bottom margin = 0.94rem)
 }
 
 // .card-body {
@@ -48,11 +52,11 @@ article.card .card-img-top {
 
 .card-body__recipe__instructions p {
   font-family: "Roboto", sans-serif;
-  height: 6rem;
+  // height: 6rem;
 }
 
 .card-body__ingredients-instructions > div {
-  height: 5.7rem;
+  // height: 5.7rem;
 }
 
 // .card-body__time p {
