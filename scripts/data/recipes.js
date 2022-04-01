@@ -1,4 +1,6 @@
-const recipes = [
+export { RECIPES_DATA };
+
+const RECIPES_DATA = [
   {
     id: 1,
     name: "Limonade de Coco",
