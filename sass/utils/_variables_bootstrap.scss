@@ -23,7 +23,7 @@ $spacer: 1rem;
 $spacers: (
   0: 0,
   1: $spacer * 0.25,
-  2: $spacer * 0.5,
+  2: $spacer * 0.833,
   3: $spacer,
   4: $spacer * 1.333,
   5: $spacer * 2.333,
@@ -31,8 +31,13 @@ $spacers: (
 
 // $enable-negative-margins: true;
 $enable-rfs: false;
+$enable-shadows: false;
 
 $primary: #d04f4f;
+$secondary: #3282f7;
+$success: #68d9a4;
+$danger: #ed6454;
+
 // $dark: #04040C;
 // $headings-color: #284876;
 // $card-bg: #FCFCFC;
