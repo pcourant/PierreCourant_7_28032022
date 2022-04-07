@@ -12,6 +12,17 @@ async function init() {
   // Affiche les recettes
   // displayPhotographers(photographers);
   displayRecipes();
+
+  document
+    .getElementById("dropdownIngredientsButton")
+    .addEventListener("click", () => {
+      document
+        .getElementById("dropdownIngredientsButton")
+        .classList.toggle("d-flex");
+      document
+        .getElementById("dropdownIngredientsButton")
+        .classList.toggle("hidden");
+    });
 }
 
 init();

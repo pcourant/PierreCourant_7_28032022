@@ -56,6 +56,13 @@
         </div>
         <!-- FILTERS DROPDOWN -->
         <div class="filters-search-container container d-flex p-0">
+          <!-- Library select-picker -->
+          <!-- <select class="selectpicker">
+            <option>Hot Dog, Fries and a Soda</option>
+            <option>Burger, Shake and a Smile</option>
+            <option>Sugar, Spice and all things nice</option>
+          </select> -->
+
           <div class="dropdown ingredients-dropdown">
             <button
               class="btn py-4 px-3 btn-secondary text-white fw-bold dropdown-toggle shadow-none d-flex justify-content-between align-items-baseline"
@@ -66,18 +73,100 @@
               aria-expanded="false"
             >
               Ingrédients
-              <!-- Changing the default icon with toggle-->
               <span class="fa-solid fa-chevron-down"></span>
             </button>
-            <ul
-              class="dropdown-menu"
+            <div
+              class="dropdown-menu p-0 text-white"
               aria-labelledby="dropdownIngredientsButton"
             >
-              <li><a class="dropdown-item active" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
+              <div
+                class="dropdown-search-container w-100 d-flex justify-content-between justify-content-between align-items-baseline ps-3"
+              >
+                <input
+                  type="search"
+                  id="ingredients-search"
+                  placeholder="Rechercher un ingrédient"
+                  class=""
+                />
+                <span class="fa-solid fa-chevron-up"></span>
+              </div>
+              <div class="ingredients-filters d-flex flex-column flex-wrap">
+                <p class="dropdown-item">Lait de coco</p>
+                <p class="dropdown-item">Moutarde de Dijon2</p>
+                <p class="dropdown-item">Moutarde de Dijon3</p>
+                <p class="dropdown-item">Moutarde de Dijon4</p>
+                <p class="dropdown-item">Moutarde de Dijon5</p>
+                <p class="dropdown-item">Moutarde de Dijon6</p>
+                <p class="dropdown-item">Moutarde de Dijon7</p>
+                <p class="dropdown-item">Moutarde de Dijon8</p>
+                <p class="dropdown-item">Moutarde de Dijon9</p>
+                <p class="dropdown-item">Moutarde de Dijon10</p>
+                <p class="dropdown-item">Moutarde de Dijon11</p>
+                <p class="dropdown-item">Moutarde de Dijon12</p>
+                <p class="dropdown-item">Moutarde de Dijon13</p>
+                <p class="dropdown-item">Moutarde de Dijon14</p>
+                <p class="dropdown-item">Moutarde de Dijon15</p>
+                <p class="dropdown-item">Moutarde de Dijon16</p>
+                <p class="dropdown-item">Moutarde de Dijon17</p>
+                <p class="dropdown-item">Moutarde de Dijon18</p>
+                <p class="dropdown-item">Moutarde de Dijon19</p>
+                <p class="dropdown-item">Moutarde de Dijon20</p>
+                <p class="dropdown-item">Moutarde de Dijon21</p>
+                <p class="dropdown-item">Moutarde de Dijon22</p>
+                <p class="dropdown-item">Moutarde de Dijon23</p>
+                <p class="dropdown-item">Moutarde de Dijon24</p>
+                <p class="dropdown-item">Moutarde de Dijon25</p>
+                <p class="dropdown-item">Moutarde de Dijon26</p>
+                <p class="dropdown-item">Moutarde de Dijon27</p>
+                <p class="dropdown-item">Moutarde de Dijon28</p>
+                <p class="dropdown-item">Moutarde de Dijon29</p>
+                <p class="dropdown-item">Moutarde de Dijon30</p>
+              </div>
+            </div>
+            <!-- <div
+              class="dropdown-menu dropdown-multicol3"
+              aria-labelledby="dropdownIngredientsButton"
+            >
+              <div class="dropdown-col">
+                <p class="dropdown-item">Lait de coco</p>
+                <p class="dropdown-item">Moutarde de Dijon1</p>
+                <p class="dropdown-item">Moutarde de Dijon2</p>
+                <p class="dropdown-item">Moutarde de Dijon3</p>
+                <p class="dropdown-item">Moutarde de Dijon4</p>
+                <p class="dropdown-item">Moutarde de Dijon5</p>
+                <p class="dropdown-item">Moutarde de Dijon6</p>
+                <p class="dropdown-item">Moutarde de Dijon7</p>
+                <p class="dropdown-item">Moutarde de Dijon8</p>
+                <p class="dropdown-item">Moutarde de Dijon9</p>
+                <p class="dropdown-item">Moutarde de Dijon10</p>
+              </div>
+              <div class="dropdown-col">
+                <p class="dropdown-item">Moutarde de Dijon11</p>
+                <p class="dropdown-item">Moutarde de Dijon12</p>
+                <p class="dropdown-item">Moutarde de Dijon12</p>
+                <p class="dropdown-item">Moutarde de Dijon13</p>
+                <p class="dropdown-item">Moutarde de Dijon14</p>
+                <p class="dropdown-item">Moutarde de Dijon15</p>
+                <p class="dropdown-item">Moutarde de Dijon16</p>
+                <p class="dropdown-item">Moutarde de Dijon17</p>
+                <p class="dropdown-item">Moutarde de Dijon18</p>
+                <p class="dropdown-item">Moutarde de Dijon19</p>
+                <p class="dropdown-item">Moutarde de Dijon110</p>
+              </div>
+              <div class="dropdown-col">
+                <p class="dropdown-item">Moutarde de Dijon21</p>
+                <p class="dropdown-item">Moutarde de Dijon21</p>
+                <p class="dropdown-item">Moutarde de Dijon22</p>
+                <p class="dropdown-item">Moutarde de Dijon23</p>
+                <p class="dropdown-item">Moutarde de Dijon24</p>
+                <p class="dropdown-item">Moutarde de Dijon25</p>
+                <p class="dropdown-item">Moutarde de Dijon26</p>
+                <p class="dropdown-item">Moutarde de Dijon27</p>
+                <p class="dropdown-item">Moutarde de Dijon28</p>
+                <p class="dropdown-item">Moutarde de Dijon29</p>
+                <p class="dropdown-item">Moutarde de Dijon30</p>
+              </div>
+            </div> -->
           </div>
           <div class="dropdown appareils-dropdown">
             <button
@@ -99,11 +188,11 @@
               <li><a class="dropdown-item" href="#">Separated link</a></li>
             </ul>
           </div>
-          <div class="dropdown appareils-dropdown">
+          <div class="dropdown ustensils-dropdown">
             <button
               class="btn py-4 px-3 btn-danger text-white fw-bold dropdown-toggle shadow-none d-flex justify-content-between align-items-baseline"
               type="button"
-              id="dropdownAppareilsButton"
+              id="dropdownUstensilsButton"
               data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
@@ -224,6 +313,13 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"
   ></script>
+  <!-- <script src="node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script> -->
 
   <script type="module" src="scripts/pages/index.js"></script>
+
+  <!-- <script>
+    $(document).ready(function () {
+      $("select").selectpicker();
+    });
+  </script> -->
 </html>
