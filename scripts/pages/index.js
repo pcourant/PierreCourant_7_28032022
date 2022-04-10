@@ -17,12 +17,29 @@ async function init() {
     .getElementById("dropdownIngredientsButton")
     .addEventListener("click", () => {
       document
-        .getElementById("dropdownIngredientsButton")
-        .classList.toggle("d-flex");
-      document
-        .getElementById("dropdownIngredientsButton")
-        .classList.toggle("hidden");
+        .querySelector(".appareils-dropdown")
+        .classList.add("margin-left-multicol3");
     });
+  document
+    .getElementById("dropdownAppareilsButton")
+    .addEventListener("click", () => {
+      document
+        .querySelector(".ustensils-dropdown")
+        .classList.add("margin-left-multicol3");
+    });
+
+  document
+    .querySelector(".dropdown-menu .fa-chevron-up")
+    .addEventListener("click", () => {
+      document
+        .querySelector(".appareils-dropdown")
+        .classList.remove("margin-left-multicol3");
+    });
+  document.querySelector(".dropdown-filters").addEventListener("click", () => {
+    document
+      .querySelector(".appareils-dropdown")
+      .classList.remove("margin-left-multicol3");
+  });
 }
 
 init();

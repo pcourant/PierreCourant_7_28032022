@@ -18,7 +18,6 @@
   "homepage": "https://github.com/pcourant/PierreCourant_7_28032022#readme",
   "dependencies": {
     "bootstrap": "^5.1.3",
-    "bootstrap-select": "^1.14.0-beta2",
     "sass": "^1.49.9"
   }
 }
