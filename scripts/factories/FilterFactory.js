@@ -1,4 +1,11 @@
-export { getAllIngredientFilters, insertIngredientsDropdownDOM };
+export {
+  getAllIngredientFilters,
+  insertIngredientsDropdownDOM,
+  getAllAppareilFilters,
+  insertAppareilsDropdownDOM,
+  getAllUstensilFilters,
+  insertUstensilsDropdownDOM,
+};
 
 const INGREDIENT_FILTERS = new Array();
 const APPAREIL_FILTERS = new Array();
@@ -54,6 +61,42 @@ async function getAllIngredientFilters(recipes) {
   console.log("Nombre de filtres ingrédient = ", counter);
 }
 
+async function getAllAppareilFilters(recipes) {
+  let counter = 0;
+  recipes.forEach((recipe) => {
+    // si l'appareil n'est pas déjà présent on l'insère
+    if (APPAREIL_FILTERS.some((a) => a.name === recipe.appliance) === false) {
+      const appareilFilter = filterFactory("appareil", recipe.appliance);
+      appareilFilter.constructorDropdownDOM();
+      appareilFilter.constructorFilterDOM();
+      APPAREIL_FILTERS.push(appareilFilter);
+      counter++;
+    }
+  });
+
+  console.log("Nombre de filtres appareils = ", counter);
+}
+
+async function getAllUstensilFilters(recipes) {
+  let counter = 0;
+  recipes.forEach((recipe) => {
+    recipe.ustensils.forEach((ustensil) => {
+      // si l'ingrédient n'est pas déjà présent on l'insère
+      if (USTENSIL_FILTERS.some((i) => i.name === ustensil) === false) {
+        const ustensilFilter = filterFactory("ustensil", ustensil);
+        ustensilFilter.constructorDropdownDOM();
+        ustensilFilter.constructorFilterDOM();
+        USTENSIL_FILTERS.push(ustensilFilter);
+        counter++;
+      }
+    });
+  });
+
+  console.log("Nombre de filtres ustensils = ", counter);
+}
+
+// ----------------------------------------------------------------------------------------
+
 async function insertIngredientsDropdownDOM() {
   const ingredientsDropdownContainer = document.querySelector(
     ".ingredients-dropdown .dropdown-filters"
@@ -61,5 +104,25 @@ async function insertIngredientsDropdownDOM() {
 
   INGREDIENT_FILTERS.forEach((ingredientFilter) => {
     ingredientsDropdownContainer.appendChild(ingredientFilter.dropdownDOM);
+  });
+}
+
+async function insertAppareilsDropdownDOM() {
+  const appareilsDropdownContainer = document.querySelector(
+    ".appareils-dropdown .dropdown-filters"
+  );
+
+  APPAREIL_FILTERS.forEach((appareilFilter) => {
+    appareilsDropdownContainer.appendChild(appareilFilter.dropdownDOM);
+  });
+}
+
+async function insertUstensilsDropdownDOM() {
+  const ustensilsDropdownContainer = document.querySelector(
+    ".ustensils-dropdown .dropdown-filters"
+  );
+
+  USTENSIL_FILTERS.forEach((ustensilFilter) => {
+    ustensilsDropdownContainer.appendChild(ustensilFilter.dropdownDOM);
   });
 }

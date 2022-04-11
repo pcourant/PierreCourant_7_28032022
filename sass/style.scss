@@ -128,16 +128,12 @@ article .card-body {
     & .dropdown-filters {
       height: 18.4rem;
 
-      &.multicol3 {
-        width: 37.06rem;
-
-        & .dropdown-item {
-          width: 12.2rem;
-          margin: 0;
-          color: white;
-          padding-top: 0.278rem;
-          padding-bottom: 0.278rem;
-        }
+      & .dropdown-item {
+        width: 12.351rem;
+        margin: 0;
+        color: white;
+        padding-top: 0.278rem;
+        padding-bottom: 0.278rem;
       }
     }
 
@@ -150,6 +146,18 @@ article .card-body {
   &.margin-left-multicol3 {
     margin-left: 27.61rem;
   }
+
+  &.margin-left-multicol2 {
+    margin-left: 15.257rem;
+  }
+}
+
+.multicol3 {
+  width: 37.06rem;
+}
+
+.multicol2 {
+  width: 24.707rem;
 }
 
 .ingredients-dropdown {
