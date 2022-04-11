@@ -12,34 +12,30 @@ async function init() {
   // Affiche les recettes
   // displayPhotographers(photographers);
   displayRecipes();
-
-  document
-    .getElementById("dropdownIngredientsButton")
-    .addEventListener("click", () => {
-      document
-        .querySelector(".appareils-dropdown")
-        .classList.add("margin-left-multicol3");
-    });
-  document
-    .getElementById("dropdownAppareilsButton")
-    .addEventListener("click", () => {
-      document
-        .querySelector(".ustensils-dropdown")
-        .classList.add("margin-left-multicol3");
-    });
-
-  document
-    .querySelector(".dropdown-menu .fa-chevron-up")
-    .addEventListener("click", () => {
-      document
-        .querySelector(".appareils-dropdown")
-        .classList.remove("margin-left-multicol3");
-    });
-  document.querySelector(".dropdown-filters").addEventListener("click", () => {
-    document
-      .querySelector(".appareils-dropdown")
-      .classList.remove("margin-left-multicol3");
-  });
 }
 
 init();
+
+let myDropdown = document.getElementById("dropdownIngredientsButton");
+myDropdown.addEventListener("show.bs.dropdown", function () {
+  document
+    .querySelector(".appareils-dropdown")
+    .classList.add("margin-left-multicol3");
+});
+myDropdown.addEventListener("hidden.bs.dropdown", function () {
+  document
+    .querySelector(".appareils-dropdown")
+    .classList.remove("margin-left-multicol3");
+});
+
+myDropdown = document.getElementById("dropdownAppareilsButton");
+myDropdown.addEventListener("show.bs.dropdown", function () {
+  document
+    .querySelector(".ustensils-dropdown")
+    .classList.add("margin-left-multicol3");
+});
+myDropdown.addEventListener("hidden.bs.dropdown", function () {
+  document
+    .querySelector(".ustensils-dropdown")
+    .classList.remove("margin-left-multicol3");
+});
