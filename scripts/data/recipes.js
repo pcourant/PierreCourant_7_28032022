@@ -62,7 +62,7 @@ const RECIPES_DATA = [
         quantity: 5,
       },
       {
-        ingredient: "Lait de Coco",
+        ingredient: "Lait de coco",
         quantity: 100,
         unit: "ml",
       },

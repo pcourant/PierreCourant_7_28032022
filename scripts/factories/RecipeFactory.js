@@ -1,6 +1,7 @@
 export { RECIPES, getAllRecipes, displayRecipes };
 
 const RECIPES = new Array();
+// const RECIPES_FILTERED = new Array();
 
 // async function initRecipes(recipesDATA) {
 // await getAllRecipes(recipesDATA);
