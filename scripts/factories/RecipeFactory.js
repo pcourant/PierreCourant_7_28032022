@@ -1,16 +1,24 @@
-export { RECIPES, getAllRecipes, displayRecipes };
+export {
+  RECIPES_DATABASE,
+  RECIPES_DISPLAYED,
+  getAllRecipes,
+  displayAllRecipes,
+  removeAllRecipes,
+};
 
-const RECIPES = new Array();
-// const RECIPES_FILTERED = new Array();
+const RECIPES_DATABASE = [];
+const RECIPES_DISPLAYED = [];
 
 // async function initRecipes(recipesDATA) {
 // await getAllRecipes(recipesDATA);
 
 // tri par défaut
-// RECIPES.sort((a, b) => {
+// RECIPES_DATABASE.sort((a, b) => {
 //   return b.likes - a.likes;
 // });
 // }
+
+const recipesContainer = document.querySelector(".recipes-section .row");
 
 function recipeFactory(data) {
   let {
@@ -185,14 +193,19 @@ async function getAllRecipes(recipesDATA) {
   recipesDATA.forEach((recipeDATA) => {
     const recipe = recipeFactory(recipeDATA);
     recipe.constructorRecipeCard();
-    RECIPES.push(recipe);
+    RECIPES_DATABASE.push(recipe);
+    RECIPES_DISPLAYED.push(recipe);
   });
 }
 
-async function displayRecipes() {
-  const recipesContainer = document.querySelector(".recipes-section .row");
-
-  RECIPES.forEach((recipe) => {
+async function displayAllRecipes() {
+  RECIPES_DATABASE.forEach((recipe) => {
     recipesContainer.appendChild(recipe.recipeCardDOM);
   });
+}
+
+async function removeAllRecipes() {
+  while (recipesContainer.firstChild) {
+    recipesContainer.removeChild(recipesContainer.lastChild);
+  }
 }

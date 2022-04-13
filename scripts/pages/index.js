@@ -1,8 +1,9 @@
 import { RECIPES_DATA } from "../data/recipes.js";
 import {
-  RECIPES,
+  RECIPES_DATABASE,
   getAllRecipes,
-  displayRecipes,
+  displayAllRecipes,
+  removeAllRecipes,
 } from "../factories/RecipeFactory.js";
 import {
   getAllIngredientFilters,
@@ -12,12 +13,13 @@ import {
   getAllUstensilFilters,
   insertUstensilsDropdownDOM,
 } from "../factories/FilterFactory.js";
+import { initMainSearch } from "../components/mainSearch.js";
 
 async function init() {
   // Récupère les recettes du fichier DATA
   await getAllRecipes(RECIPES_DATA);
   // Affiche les recettes
-  displayRecipes();
+  displayAllRecipes();
 
   // Construit les filtres "ingrédient"
   await getAllIngredientFilters(RECIPES_DATA);
@@ -31,6 +33,9 @@ async function init() {
   await getAllUstensilFilters(RECIPES_DATA);
   // Insère les filtres "appareil" dans le menu dropdown
   insertUstensilsDropdownDOM();
+
+  // Add main search feature
+  initMainSearch();
 }
 
 init();
