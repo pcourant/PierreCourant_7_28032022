@@ -175,6 +175,19 @@ function recipeFactory(data) {
     return divContainer;
   }
 
+  function displayRecipeCard() {
+    if (this.recipeCardDOM !== undefined) {
+      recipesContainer.appendChild(this.recipeCardDOM);
+    }
+  }
+
+  function removeRecipeCard() {
+    if (this.recipeCardDOM !== undefined) {
+      recipesContainer.removeChild(this.recipeCardDOM);
+      // console.log("removeRecipeCard : ", this.recipeCardDOM);
+    }
+  }
+
   return {
     id,
     name,
@@ -186,6 +199,8 @@ function recipeFactory(data) {
     ustensils,
     recipeCardDOM,
     constructorRecipeCard,
+    displayRecipeCard,
+    removeRecipeCard,
   };
 }
 
@@ -200,7 +215,7 @@ async function getAllRecipes(recipesDATA) {
 
 async function displayAllRecipes() {
   RECIPES_DATABASE.forEach((recipe) => {
-    recipesContainer.appendChild(recipe.recipeCardDOM);
+    recipe.displayRecipeCard();
   });
 }
 

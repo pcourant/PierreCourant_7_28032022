@@ -4,6 +4,7 @@ import {
   getAllRecipes,
   displayAllRecipes,
   removeAllRecipes,
+  RECIPES_DISPLAYED,
 } from "../factories/RecipeFactory.js";
 import {
   getAllIngredientFilters,
@@ -38,7 +39,7 @@ async function init() {
   initMainSearch();
 }
 
-init();
+await init();
 
 // ------------------------------------------------------------------------------------
 
@@ -65,3 +66,17 @@ myDropdown.addEventListener("hidden.bs.dropdown", function () {
     .querySelector(".ustensils-dropdown")
     .classList.remove("margin-left-multicol2");
 });
+
+// --------------------------------------------------------------------------
+
+// console.log("--------- removeRecipeCard -----------");
+
+// RECIPES_DISPLAYED[2].removeRecipeCard();
+
+// console.log("---------  -----------");
+
+// console.log("--------- displayRecipeCard -----------");
+
+// RECIPES_DATABASE[2].displayRecipeCard();
+
+// console.log("---------  -----------");
