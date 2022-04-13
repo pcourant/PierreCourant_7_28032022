@@ -7,9 +7,9 @@ export {
   insertUstensilsDropdownDOM,
 };
 
-const INGREDIENT_FILTERS = new Array();
-const APPAREIL_FILTERS = new Array();
-const USTENSIL_FILTERS = new Array();
+const INGREDIENT_FILTERS = [];
+const APPAREIL_FILTERS = [];
+const USTENSIL_FILTERS = [];
 
 function filterFactory(type, name) {
   let dropdownDOM = undefined;
