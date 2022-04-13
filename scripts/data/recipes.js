@@ -1,5 +1,3 @@
-export { RECIPES_DATA };
-
 const RECIPES_DATA = [
   {
     id: 1,
@@ -1777,3 +1775,5 @@ const RECIPES_DATA = [
     ustensils: ["rouleau à patisserie", "fouet"],
   },
 ];
+
+export { RECIPES_DATA };
