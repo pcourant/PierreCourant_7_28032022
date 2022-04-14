@@ -2,7 +2,7 @@ export {
   getAllIngredientFilters,
   insertIngredientsDropdownDOM,
   getAllAppareilFilters,
-  insertAppareilsDropdownDOM,
+  insertAppliancesDropdownDOM,
   getAllUstensilFilters,
   insertUstensilsDropdownDOM,
 };
@@ -74,7 +74,7 @@ async function getAllAppareilFilters(recipes) {
     }
   });
 
-  console.log("Nombre de filtres appareils = ", counter);
+  console.log("Nombre de filtres appliances = ", counter);
 }
 
 async function getAllUstensilFilters(recipes) {
@@ -107,13 +107,13 @@ async function insertIngredientsDropdownDOM() {
   });
 }
 
-async function insertAppareilsDropdownDOM() {
-  const appareilsDropdownContainer = document.querySelector(
-    ".appareils-dropdown .dropdown-filters"
+async function insertAppliancesDropdownDOM() {
+  const appliancesDropdownContainer = document.querySelector(
+    ".appliances-dropdown .dropdown-filters"
   );
 
   APPAREIL_FILTERS.forEach((appareilFilter) => {
-    appareilsDropdownContainer.appendChild(appareilFilter.dropdownDOM);
+    appliancesDropdownContainer.appendChild(appareilFilter.dropdownDOM);
   });
 }
 

@@ -10,7 +10,7 @@ import {
   getAllIngredientFilters,
   insertIngredientsDropdownDOM,
   getAllAppareilFilters,
-  insertAppareilsDropdownDOM,
+  insertAppliancesDropdownDOM,
   getAllUstensilFilters,
   insertUstensilsDropdownDOM,
 } from "../factories/FilterFactory.js";
@@ -29,7 +29,7 @@ async function init() {
   // Construit les filtres "appareil"
   await getAllAppareilFilters(RECIPES_DATA);
   // Insère les filtres "appareil" dans le menu dropdown
-  insertAppareilsDropdownDOM();
+  insertAppliancesDropdownDOM();
   // Construit les filtres "appareil"
   await getAllUstensilFilters(RECIPES_DATA);
   // Insère les filtres "appareil" dans le menu dropdown
@@ -46,16 +46,16 @@ await init();
 let myDropdown = document.getElementById("dropdownIngredientsButton");
 myDropdown.addEventListener("show.bs.dropdown", function () {
   document
-    .querySelector(".appareils-dropdown")
+    .querySelector(".appliances-dropdown")
     .classList.add("margin-left-multicol3");
 });
 myDropdown.addEventListener("hidden.bs.dropdown", function () {
   document
-    .querySelector(".appareils-dropdown")
+    .querySelector(".appliances-dropdown")
     .classList.remove("margin-left-multicol3");
 });
 
-myDropdown = document.getElementById("dropdownAppareilsButton");
+myDropdown = document.getElementById("dropdownAppliancesButton");
 myDropdown.addEventListener("show.bs.dropdown", function () {
   document
     .querySelector(".ustensils-dropdown")

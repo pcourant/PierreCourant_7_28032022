@@ -18,8 +18,6 @@ const RECIPES_DISPLAYED = [];
 // });
 // }
 
-const recipesContainer = document.querySelector(".recipes-section .row");
-
 function recipeFactory(data) {
   let {
     id,
@@ -176,12 +174,14 @@ function recipeFactory(data) {
   }
 
   function displayRecipeCard() {
+    const recipesContainer = document.querySelector(".recipes-section .row");
     if (this.recipeCardDOM !== undefined) {
       recipesContainer.appendChild(this.recipeCardDOM);
     }
   }
 
   function removeRecipeCard() {
+    const recipesContainer = document.querySelector(".recipes-section .row");
     if (this.recipeCardDOM !== undefined) {
       recipesContainer.removeChild(this.recipeCardDOM);
       // console.log("removeRecipeCard : ", this.recipeCardDOM);
@@ -220,7 +220,16 @@ async function displayAllRecipes() {
 }
 
 async function removeAllRecipes() {
-  while (recipesContainer.firstChild) {
-    recipesContainer.removeChild(recipesContainer.lastChild);
-  }
+  const recipesSection = document.querySelector("section.recipes-section");
+  recipesSection.removeChild(recipesSection.lastChild);
+
+  const div = document.createElement("div");
+  div.classList.add("row");
+  div.classList.add("g-4");
+  div.classList.add("g-md-4");
+  div.classList.add("g-lg-5");
+  div.classList.add("g-xl-4");
+  div.classList.add("g-xxl-5");
+
+  recipesSection.appendChild(div);
 }
