@@ -144,12 +144,19 @@ function recipeFactory(data) {
       ingredientParagraph.classList.add("small");
       ingredientParagraph.classList.add("fw-bold");
       ingredientParagraph.classList.add("m-0");
-      ingredientParagraph.textContent = element.ingredient;
+      ingredientParagraph.textContent = `${element.ingredient}`;
 
-      const quantitySpan = document.createElement("span");
-      ingredientParagraph.appendChild(quantitySpan);
-      quantitySpan.classList.add("fw-normal");
-      ingredientParagraph.textContent = `${element.quantity} ${element.unit}`;
+      if (element.quantity !== undefined) {
+        ingredientParagraph.textContent += `: `;
+        const quantitySpan = document.createElement("span");
+        ingredientParagraph.appendChild(quantitySpan);
+        quantitySpan.classList.add("fw-normal");
+        quantitySpan.textContent = `${element.quantity}`;
+
+        if (element.unit !== undefined) {
+          quantitySpan.textContent += ` ${element.unit}`;
+        }
+      }
     });
 
     // Création de la colonne "Instructions"
