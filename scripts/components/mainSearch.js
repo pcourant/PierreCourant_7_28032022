@@ -10,30 +10,39 @@ export { initMainSearch };
 const searchInput = document.getElementById("search-input");
 
 async function searchAndDisplay(input) {
-  // RECIPES_DISPLAYED.forEach((recipe) => {
-  //   let isFound = false;
-  //   isFound = recipe.name.includes(input);
-  //   if (!isFound) {
-  //     isFound = recipe.description.includes(input);
-  //   }
-  //   if (!isFound) {
-  //     let i = 0;
-  //     while (!isFound && i < recipe.ingredients.length) {
-  //       isFound = recipe.ingredients[0].ingredient.includes(input);
-  //       i++;
-  //     }
-  //   }
-  //   if (!isFound) {
-  //     recipe.removeRecipeCard();
-  //   }
-  // });
-}
-// async function searchInputInTitle(input) {}
-// async function searchInputInDescription(input) {}
-// async function searchInputInIngredients(input) {}
+  const recipesDisplayed = [];
 
-async function searchInputInString(input, string) {
-  return string.includes(input);
+  for (let i = 0; i < RECIPES_DATABASE.length; i++) {
+    const recipe = RECIPES_DATABASE[i];
+    let isFound = false;
+
+    // Teste si le titre contient l'input
+    isFound = recipe.name.toLowerCase().includes(input.toLowerCase());
+
+    // Teste si la description contient l'input
+    if (!isFound) {
+      isFound = recipe.description.toLowerCase().includes(input.toLowerCase());
+
+      // Teste si un ingrédient contient l'input
+      if (!isFound) {
+        let j = 0;
+        while (!isFound && j < recipe.ingredients.length) {
+          isFound = recipe.ingredients[j].ingredient
+            .toLowerCase()
+            .includes(input.toLowerCase());
+          j++;
+        }
+      }
+    }
+
+    // Si l'input apparaît quelque part, on affiche la recette
+    if (isFound) {
+      recipe.displayRecipeCard();
+      recipesDisplayed.push(recipe);
+    }
+  }
+
+  return recipesDisplayed;
 }
 
 async function updateRecipes(e) {
@@ -44,7 +53,6 @@ async function updateRecipes(e) {
   await removeAllRecipes();
 
   if (searchText.length < 3) {
-    // console.log("searchText = ", searchText);
     displayAllRecipes();
     return;
   }
