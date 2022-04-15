@@ -1,7 +1,5 @@
 import {
   RECIPES_DATABASE,
-  RECIPES_DISPLAYED,
-  getAllRecipes,
   displayAllRecipes,
   removeAllRecipes,
 } from "../factories/RecipeFactory.js";
