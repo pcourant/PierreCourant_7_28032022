@@ -228,7 +228,8 @@ async function displayAllRecipes() {
 
 async function removeAllRecipes() {
   const recipesSection = document.querySelector("section.recipes-section");
-  recipesSection.removeChild(recipesSection.lastChild);
+  const recipesContainer = document.querySelector(".recipes-section .row");
+  recipesSection.removeChild(recipesContainer);
 
   const div = document.createElement("div");
   div.classList.add("row");

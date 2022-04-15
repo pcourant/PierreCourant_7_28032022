@@ -10,30 +10,50 @@ export { initMainSearch };
 const searchInput = document.getElementById("search-input");
 
 async function searchAndDisplay(input) {
-  // RECIPES_DISPLAYED.forEach((recipe) => {
-  //   let isFound = false;
-  //   isFound = recipe.name.includes(input);
-  //   if (!isFound) {
-  //     isFound = recipe.description.includes(input);
-  //   }
-  //   if (!isFound) {
-  //     let i = 0;
-  //     while (!isFound && i < recipe.ingredients.length) {
-  //       isFound = recipe.ingredients[0].ingredient.includes(input);
-  //       i++;
-  //     }
-  //   }
-  //   if (!isFound) {
-  //     recipe.removeRecipeCard();
-  //   }
-  // });
-}
-// async function searchInputInTitle(input) {}
-// async function searchInputInDescription(input) {}
-// async function searchInputInIngredients(input) {}
+  const recipesDisplayed = RECIPES_DATABASE.filter((recipe) => {
+    // // Récupère tous les ingrédients
+    // const ingredientsText = recipe.ingredients.reduce(
+    //   (previousValue, currentValue) => {
+    //     return `${previousValue} ${currentValue.ingredient}`;
+    //   },
+    //   ""
+    // );
+    // // Construit un string avec tout le texte de la recette
+    // const recipeText = `${recipe.name} ${recipe.description} ${ingredientsText}`;
+    // // console.log("searchAndDisplay, recipeText :");
+    // // console.log(recipeText);
+    // // Vérifie si l'input de l'utilisateur est inclus dans la recette
+    // const isFound = recipeText.toLowerCase().includes(input.toLowerCase());
 
-async function searchInputInString(input, string) {
-  return string.includes(input);
+    let isFound = false;
+
+    // Teste si le titre contient l'input
+    isFound = recipe.name.toLowerCase().includes(input.toLowerCase());
+
+    // Teste si la description contient l'input
+    if (!isFound) {
+      isFound = recipe.description.toLowerCase().includes(input.toLowerCase());
+
+      // Teste si un ingrédient contient l'input
+      if (!isFound) {
+        isFound = recipe.ingredients.find((element) => {
+          return element.ingredient.toLowerCase().includes(input.toLowerCase());
+        });
+        // if (isFound) {
+        //   console.log("ingredients: ", recipe);
+        // }
+      }
+    }
+
+    if (isFound) {
+      recipe.displayRecipeCard();
+    }
+
+    // Return le test pour la méthode filter et la construction du tableau résultat
+    return isFound;
+  });
+
+  // console.log("searchAndDisplay, recipesDisplayed: ", recipesDisplayed);
 }
 
 async function updateRecipes(e) {
@@ -44,7 +64,6 @@ async function updateRecipes(e) {
   await removeAllRecipes();
 
   if (searchText.length < 3) {
-    // console.log("searchText = ", searchText);
     displayAllRecipes();
     return;
   }
