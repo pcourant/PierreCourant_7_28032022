@@ -1,22 +1,14 @@
+import { RECIPES_DATABASE } from "../data/recipes.js";
+import { RECIPES_DISPLAYED } from "../components/mainSearch.js";
 export {
-  RECIPES_DATABASE,
-  RECIPES_DISPLAYED,
+  RECIPES_ALL,
+  initRecipes,
   getAllRecipes,
   displayAllRecipes,
   removeAllRecipes,
 };
 
-const RECIPES_DATABASE = [];
-const RECIPES_DISPLAYED = [];
-
-// async function initRecipes(recipesDATA) {
-// await getAllRecipes(recipesDATA);
-
-// tri par défaut
-// RECIPES_DATABASE.sort((a, b) => {
-//   return b.likes - a.likes;
-// });
-// }
+const RECIPES_ALL = [];
 
 function recipeFactory(data) {
   let {
@@ -215,14 +207,14 @@ async function getAllRecipes(recipesDATA) {
   recipesDATA.forEach((recipeDATA) => {
     const recipe = recipeFactory(recipeDATA);
     recipe.constructorRecipeCard();
-    RECIPES_DATABASE.push(recipe);
-    // RECIPES_DISPLAYED.push(recipe);
+    RECIPES_ALL.push(recipe);
   });
 }
 
 async function displayAllRecipes() {
-  RECIPES_DATABASE.forEach((recipe) => {
+  RECIPES_ALL.forEach((recipe) => {
     recipe.displayRecipeCard();
+    RECIPES_DISPLAYED.push(recipe);
   });
 }
 
@@ -232,13 +224,20 @@ async function removeAllRecipes() {
 
   recipesSection.removeChild(recipesContainer);
 
-  const div = document.createElement("div");
-  div.classList.add("row");
-  div.classList.add("g-4");
-  div.classList.add("g-md-4");
-  div.classList.add("g-lg-5");
-  div.classList.add("g-xl-4");
-  div.classList.add("g-xxl-5");
+  const newRecipesContainer = document.createElement("div");
+  newRecipesContainer.classList.add("row");
+  newRecipesContainer.classList.add("g-4");
+  newRecipesContainer.classList.add("g-md-4");
+  newRecipesContainer.classList.add("g-lg-5");
+  newRecipesContainer.classList.add("g-xl-4");
+  newRecipesContainer.classList.add("g-xxl-5");
 
-  recipesSection.appendChild(div);
+  recipesSection.appendChild(newRecipesContainer);
+}
+
+async function initRecipes() {
+  // Récupère les recettes du fichier DATA
+  await getAllRecipes(RECIPES_DATABASE);
+  // Affiche les recettes
+  displayAllRecipes();
 }

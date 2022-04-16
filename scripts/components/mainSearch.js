@@ -1,17 +1,33 @@
 import {
-  RECIPES_DATABASE,
+  RECIPES_ALL,
   displayAllRecipes,
   removeAllRecipes,
 } from "../factories/RecipeFactory.js";
-export { initMainSearch };
+import {
+  getIngredientFilters,
+  getApplianceFilters,
+  getUstensilFilters,
+  displayIngredientFilters,
+  displayApplianceFilters,
+  displayUstensilFilters,
+  removeIngredientFilters,
+  removeApplianceFilters,
+  removeUstensilFilters,
+} from "../factories/FilterFactory.js";
+import {
+  INGREDIENT_FILTERS_DISPLAYED,
+  APPLIANCE_FILTERS_DISPLAYED,
+  USTENSIL_FILTERS_DISPLAYED,
+} from "../components/filtersSearch.js";
+export { RECIPES_DISPLAYED, initMainSearch };
+
+const RECIPES_DISPLAYED = [];
 
 const searchInput = document.getElementById("search-input");
 
 async function searchAndDisplay(input) {
-  const recipesDisplayed = [];
-
-  for (let i = 0; i < RECIPES_DATABASE.length; i++) {
-    const recipe = RECIPES_DATABASE[i];
+  for (let i = 0; i < RECIPES_ALL.length; i++) {
+    const recipe = RECIPES_ALL[i];
     let isFound = false;
 
     // Teste si le titre contient l'input
@@ -36,11 +52,9 @@ async function searchAndDisplay(input) {
     // Si l'input apparaît quelque part, on affiche la recette
     if (isFound) {
       recipe.displayRecipeCard();
-      recipesDisplayed.push(recipe);
+      RECIPES_DISPLAYED.push(recipe);
     }
   }
-
-  return recipesDisplayed;
 }
 
 async function updateRecipes(e) {
@@ -49,13 +63,40 @@ async function updateRecipes(e) {
 
   // Efface toutes les recettes présentes
   await removeAllRecipes();
+  RECIPES_DISPLAYED.splice(0, RECIPES_DISPLAYED.length);
 
   if (searchText.length < 3) {
     displayAllRecipes();
-    return;
+  } else {
+    await searchAndDisplay(searchText);
   }
 
-  searchAndDisplay(searchText);
+  // Update filters
+  await removeIngredientFilters();
+  await removeApplianceFilters();
+  await removeUstensilFilters();
+  // Empty the arrays
+  INGREDIENT_FILTERS_DISPLAYED.splice(0, INGREDIENT_FILTERS_DISPLAYED.length);
+  APPLIANCE_FILTERS_DISPLAYED.splice(0, APPLIANCE_FILTERS_DISPLAYED.length);
+  USTENSIL_FILTERS_DISPLAYED.splice(0, USTENSIL_FILTERS_DISPLAYED.length);
+  await getIngredientFilters(RECIPES_DISPLAYED, INGREDIENT_FILTERS_DISPLAYED);
+  await getApplianceFilters(RECIPES_DISPLAYED, APPLIANCE_FILTERS_DISPLAYED);
+  await getUstensilFilters(RECIPES_DISPLAYED, USTENSIL_FILTERS_DISPLAYED);
+  displayIngredientFilters(INGREDIENT_FILTERS_DISPLAYED);
+  displayApplianceFilters(APPLIANCE_FILTERS_DISPLAYED);
+  displayUstensilFilters(USTENSIL_FILTERS_DISPLAYED);
+
+  console.log(`--------------------------------`);
+  console.log(`$$$ UPDATE RECIPES ("${searchText}") :`);
+  console.log(`RECIPES :`);
+  console.log(RECIPES_DISPLAYED);
+  console.log(`INGREDIENT :`);
+  console.log(INGREDIENT_FILTERS_DISPLAYED);
+  console.log(`APPLIANCE :`);
+  console.log(APPLIANCE_FILTERS_DISPLAYED);
+  console.log(`USTENSIL :`);
+  console.log(USTENSIL_FILTERS_DISPLAYED);
+  console.log(`--------------------------------`);
 }
 
 async function initMainSearch() {

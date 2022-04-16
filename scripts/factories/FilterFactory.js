@@ -1,15 +1,29 @@
+import {
+  APPLIANCE_FILTERS_DISPLAYED,
+  INGREDIENT_FILTERS_DISPLAYED,
+  USTENSIL_FILTERS_DISPLAYED,
+  selectFilter,
+} from "../components/filtersSearch.js";
+import { RECIPES_ALL } from "../factories/RecipeFactory.js";
 export {
-  getAllIngredientFilters,
-  insertIngredientsDropdownDOM,
-  getAllAppareilFilters,
-  insertAppliancesDropdownDOM,
-  getAllUstensilFilters,
-  insertUstensilsDropdownDOM,
+  INGREDIENT_FILTERS_ALL,
+  APPLIANCE_FILTERS_ALL,
+  USTENSIL_FILTERS_ALL,
+  initFilters,
+  getIngredientFilters,
+  getApplianceFilters,
+  getUstensilFilters,
+  displayIngredientFilters,
+  displayApplianceFilters,
+  displayUstensilFilters,
+  removeIngredientFilters,
+  removeApplianceFilters,
+  removeUstensilFilters,
 };
 
-const INGREDIENT_FILTERS = [];
-const APPAREIL_FILTERS = [];
-const USTENSIL_FILTERS = [];
+const INGREDIENT_FILTERS_ALL = [];
+const APPLIANCE_FILTERS_ALL = [];
+const USTENSIL_FILTERS_ALL = [];
 
 function filterFactory(type, name) {
   let dropdownDOM = undefined;
@@ -18,7 +32,9 @@ function filterFactory(type, name) {
   function constructorDropdownDOM() {
     const p = document.createElement("p");
     p.classList.add("dropdown-item");
+    p.setAttribute("data-type", type);
     p.textContent = name;
+    p.addEventListener("click", selectFilter);
 
     this.dropdownDOM = p;
 
@@ -37,13 +53,12 @@ function filterFactory(type, name) {
   };
 }
 
-async function getAllIngredientFilters(recipes) {
-  let counter = 0;
-  recipes.forEach((recipe) => {
+async function constructAllIngredientFilters() {
+  RECIPES_ALL.forEach((recipe) => {
     recipe.ingredients.forEach((ingredient) => {
       // si l'ingrédient n'est pas déjà présent on l'insère
       if (
-        INGREDIENT_FILTERS.some((i) => i.name === ingredient.ingredient) ===
+        INGREDIENT_FILTERS_ALL.some((i) => i.name === ingredient.ingredient) ===
         false
       ) {
         const ingredientFilter = filterFactory(
@@ -52,77 +67,195 @@ async function getAllIngredientFilters(recipes) {
         );
         ingredientFilter.constructorDropdownDOM();
         ingredientFilter.constructorFilterDOM();
-        INGREDIENT_FILTERS.push(ingredientFilter);
-        counter++;
+        INGREDIENT_FILTERS_ALL.push(ingredientFilter);
+        INGREDIENT_FILTERS_DISPLAYED.push(ingredientFilter);
       }
     });
   });
-
-  console.log("Nombre de filtres ingrédient = ", counter);
 }
 
-async function getAllAppareilFilters(recipes) {
-  let counter = 0;
-  recipes.forEach((recipe) => {
+async function constructAllApplianceFilters() {
+  RECIPES_ALL.forEach((recipe) => {
     // si l'appareil n'est pas déjà présent on l'insère
-    if (APPAREIL_FILTERS.some((a) => a.name === recipe.appliance) === false) {
-      const appareilFilter = filterFactory("appareil", recipe.appliance);
-      appareilFilter.constructorDropdownDOM();
-      appareilFilter.constructorFilterDOM();
-      APPAREIL_FILTERS.push(appareilFilter);
-      counter++;
+    if (
+      APPLIANCE_FILTERS_ALL.some((a) => a.name === recipe.appliance) === false
+    ) {
+      const applianceFilter = filterFactory("appliance", recipe.appliance);
+      applianceFilter.constructorDropdownDOM();
+      applianceFilter.constructorFilterDOM();
+      APPLIANCE_FILTERS_ALL.push(applianceFilter);
+      APPLIANCE_FILTERS_DISPLAYED.push(applianceFilter);
     }
   });
-
-  console.log("Nombre de filtres appliances = ", counter);
 }
 
-async function getAllUstensilFilters(recipes) {
-  let counter = 0;
-  recipes.forEach((recipe) => {
+async function constructAllUstensilFilters() {
+  RECIPES_ALL.forEach((recipe) => {
     recipe.ustensils.forEach((ustensil) => {
       // si l'ingrédient n'est pas déjà présent on l'insère
-      if (USTENSIL_FILTERS.some((i) => i.name === ustensil) === false) {
+      if (USTENSIL_FILTERS_ALL.some((i) => i.name === ustensil) === false) {
         const ustensilFilter = filterFactory("ustensil", ustensil);
         ustensilFilter.constructorDropdownDOM();
         ustensilFilter.constructorFilterDOM();
-        USTENSIL_FILTERS.push(ustensilFilter);
-        counter++;
+        USTENSIL_FILTERS_ALL.push(ustensilFilter);
+        USTENSIL_FILTERS_DISPLAYED.push(ustensilFilter);
       }
     });
   });
-
-  console.log("Nombre de filtres ustensils = ", counter);
 }
 
 // ----------------------------------------------------------------------------------------
 
-async function insertIngredientsDropdownDOM() {
+async function getIngredientFilters(recipes, ingredientFilters) {
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      // si l'ingrédient n'est pas déjà présent on l'insère
+      if (
+        ingredientFilters.some((i) => i.name === ingredient.ingredient) ===
+        false
+      ) {
+        // Récupère le filtre
+        const ingredientFilter = INGREDIENT_FILTERS_ALL.find(
+          (i) => i.name === ingredient.ingredient
+        );
+        ingredientFilters.push(ingredientFilter);
+      }
+    });
+  });
+}
+
+async function getApplianceFilters(recipes, applianceFilters) {
+  recipes.forEach((recipe) => {
+    // si l'appareil n'est pas déjà présent on l'insère
+    if (applianceFilters.some((a) => a.name === recipe.appliance) === false) {
+      // Récupère le filtre
+      const applianceFilter = APPLIANCE_FILTERS_ALL.find(
+        (a) => a.name === recipe.appliance
+      );
+      applianceFilters.push(applianceFilter);
+    }
+  });
+}
+
+async function getUstensilFilters(recipes, ustensilFilters) {
+  recipes.forEach((recipe) => {
+    recipe.ustensils.forEach((ustensil) => {
+      // si l'ingrédient n'est pas déjà présent on l'insère
+      if (ustensilFilters.some((i) => i.name === ustensil) === false) {
+        // Récupère le filtre
+        const ustensilFilter = USTENSIL_FILTERS_ALL.find(
+          (i) => i.name === ustensil
+        );
+        ustensilFilters.push(ustensilFilter);
+      }
+    });
+  });
+}
+
+// ----------------------------------------------------------------------------------------
+
+async function displayIngredientFilters(ingredientFilters) {
   const ingredientsDropdownContainer = document.querySelector(
     ".ingredients-dropdown .dropdown-filters"
   );
 
-  INGREDIENT_FILTERS.forEach((ingredientFilter) => {
+  ingredientFilters.forEach((ingredientFilter) => {
     ingredientsDropdownContainer.appendChild(ingredientFilter.dropdownDOM);
   });
 }
 
-async function insertAppliancesDropdownDOM() {
+async function displayApplianceFilters(applianceFilters) {
   const appliancesDropdownContainer = document.querySelector(
     ".appliances-dropdown .dropdown-filters"
   );
 
-  APPAREIL_FILTERS.forEach((appareilFilter) => {
-    appliancesDropdownContainer.appendChild(appareilFilter.dropdownDOM);
+  applianceFilters.forEach((applianceFilter) => {
+    appliancesDropdownContainer.appendChild(applianceFilter.dropdownDOM);
   });
 }
 
-async function insertUstensilsDropdownDOM() {
+async function displayUstensilFilters(ustensilFilters) {
   const ustensilsDropdownContainer = document.querySelector(
     ".ustensils-dropdown .dropdown-filters"
   );
 
-  USTENSIL_FILTERS.forEach((ustensilFilter) => {
+  ustensilFilters.forEach((ustensilFilter) => {
     ustensilsDropdownContainer.appendChild(ustensilFilter.dropdownDOM);
   });
+}
+
+// ----------------------------------------------------------------------------------------
+
+async function removeIngredientFilters() {
+  const ingredientsDropdownMenu = document.querySelector(
+    ".ingredients-dropdown .dropdown-menu"
+  );
+  const ingredientsDropdownFilters = document.querySelector(
+    ".ingredients-dropdown .dropdown-filters"
+  );
+
+  ingredientsDropdownMenu.removeChild(ingredientsDropdownFilters);
+
+  const newIngredientsDropdownFilters = document.createElement("div");
+  newIngredientsDropdownFilters.classList.add("dropdown-filters");
+  newIngredientsDropdownFilters.classList.add("d-flex");
+  newIngredientsDropdownFilters.classList.add("flex-column");
+  newIngredientsDropdownFilters.classList.add("flex-wrap");
+
+  ingredientsDropdownMenu.appendChild(newIngredientsDropdownFilters);
+}
+
+async function removeApplianceFilters() {
+  const appliancesDropdownMenu = document.querySelector(
+    ".appliances-dropdown .dropdown-menu"
+  );
+  const appliancesDropdownFilters = document.querySelector(
+    ".appliances-dropdown .dropdown-filters"
+  );
+
+  appliancesDropdownMenu.removeChild(appliancesDropdownFilters);
+
+  const newAppliancesDropdownFilters = document.createElement("div");
+  newAppliancesDropdownFilters.classList.add("dropdown-filters");
+  newAppliancesDropdownFilters.classList.add("d-flex");
+  newAppliancesDropdownFilters.classList.add("flex-column");
+  newAppliancesDropdownFilters.classList.add("flex-wrap");
+
+  appliancesDropdownMenu.appendChild(newAppliancesDropdownFilters);
+}
+
+async function removeUstensilFilters() {
+  const ustensilsDropdownMenu = document.querySelector(
+    ".ustensils-dropdown .dropdown-menu"
+  );
+  const ustensilsDropdownFilters = document.querySelector(
+    ".ustensils-dropdown .dropdown-filters"
+  );
+
+  ustensilsDropdownMenu.removeChild(ustensilsDropdownFilters);
+
+  const newUstensilsDropdownFilters = document.createElement("div");
+  newUstensilsDropdownFilters.classList.add("dropdown-filters");
+  newUstensilsDropdownFilters.classList.add("d-flex");
+  newUstensilsDropdownFilters.classList.add("flex-column");
+  newUstensilsDropdownFilters.classList.add("flex-wrap");
+
+  ustensilsDropdownMenu.appendChild(newUstensilsDropdownFilters);
+}
+
+// ----------------------------------------------------------------------------------------
+
+async function initFilters() {
+  // Construit les filtres "ingrédient"
+  await constructAllIngredientFilters();
+  // Insère les filtres "ingrédient" dans le menu dropdown
+  displayIngredientFilters(INGREDIENT_FILTERS_DISPLAYED);
+  // Construit les filtres "appareil"
+  await constructAllApplianceFilters();
+  // Insère les filtres "appareil" dans le menu dropdown
+  displayApplianceFilters(APPLIANCE_FILTERS_DISPLAYED);
+  // Construit les filtres "ustensil"
+  await constructAllUstensilFilters();
+  // Insère les filtres "ustensil" dans le menu dropdown
+  displayUstensilFilters(USTENSIL_FILTERS_DISPLAYED);
 }

@@ -1,5 +1,5 @@
-export { RECIPES_DATA };
-const RECIPES_DATA = [
+export { RECIPES_DATABASE };
+const RECIPES_DATABASE = [
   {
     id: 1,
     name: "Limonade de Coco",

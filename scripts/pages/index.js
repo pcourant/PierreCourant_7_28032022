@@ -1,39 +1,16 @@
-import { RECIPES_DATA } from "../data/recipes.js";
-import {
-  getAllRecipes,
-  displayAllRecipes,
-} from "../factories/RecipeFactory.js";
-import {
-  getAllIngredientFilters,
-  insertIngredientsDropdownDOM,
-  getAllAppareilFilters,
-  insertAppliancesDropdownDOM,
-  getAllUstensilFilters,
-  insertUstensilsDropdownDOM,
-} from "../factories/FilterFactory.js";
+import { initRecipes } from "../factories/RecipeFactory.js";
+import { initFilters } from "../factories/FilterFactory.js";
 import { initMainSearch } from "../components/mainSearch.js";
+import { initFiltersSearch } from "../components/filtersSearch.js";
 
 function init() {
-  // Récupère les recettes du fichier DATA
-  getAllRecipes(RECIPES_DATA);
-  // Affiche les recettes
-  displayAllRecipes();
+  initRecipes();
 
-  // Construit les filtres "ingrédient"
-  getAllIngredientFilters(RECIPES_DATA);
-  // Insère les filtres "ingrédient" dans le menu dropdown
-  insertIngredientsDropdownDOM();
-  // Construit les filtres "appareil"
-  getAllAppareilFilters(RECIPES_DATA);
-  // Insère les filtres "appareil" dans le menu dropdown
-  insertAppliancesDropdownDOM();
-  // Construit les filtres "appareil"
-  getAllUstensilFilters(RECIPES_DATA);
-  // Insère les filtres "appareil" dans le menu dropdown
-  insertUstensilsDropdownDOM();
+  initFilters();
 
-  // Add main search feature
   initMainSearch();
+
+  initFiltersSearch();
 }
 
 init();
@@ -52,18 +29,6 @@ myDropdown.addEventListener("hidden.bs.dropdown", function () {
     .classList.remove("margin-left-multicol3");
 });
 
-myDropdown = document.getElementById("dropdownAppliancesButton");
-myDropdown.addEventListener("show.bs.dropdown", function () {
-  document
-    .querySelector(".ustensils-dropdown")
-    .classList.add("margin-left-multicol2");
-});
-myDropdown.addEventListener("hidden.bs.dropdown", function () {
-  document
-    .querySelector(".ustensils-dropdown")
-    .classList.remove("margin-left-multicol2");
-});
-
 // --------------------------------------------------------------------------
 
 // console.log("--------- removeRecipeCard -----------");
@@ -74,6 +39,6 @@ myDropdown.addEventListener("hidden.bs.dropdown", function () {
 
 // console.log("--------- displayRecipeCard -----------");
 
-// RECIPES_DATABASE[2].displayRecipeCard();
+// RECIPES_ALL[2].displayRecipeCard();
 
 // console.log("---------  -----------");
