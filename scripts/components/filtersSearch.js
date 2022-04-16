@@ -32,29 +32,33 @@ async function updateApplianceFilters(e) {
   const searchText = e.target.value;
 
   await removeApplianceFilters();
-  APPLIANCE_FILTERS_DISPLAYED.splice(0, APPLIANCE_FILTERS_DISPLAYED.length);
 
-  await searchAndDisplayApplianceFilters(searchText);
-  displayApplianceFilters(APPLIANCE_FILTERS_DISPLAYED);
+  const updatedFilters = await searchAndDisplayApplianceFilters(searchText);
+  displayApplianceFilters(updatedFilters);
 
   console.log(`--------------------------------`);
   console.log(`$$$ updateApplianceFilters ("${searchText}") :`);
+  console.log("APPLIANCE_FILTERS_DISPLAYED");
   console.log(APPLIANCE_FILTERS_DISPLAYED);
+  console.log("updatedFilters");
+  console.log(updatedFilters);
   console.log(`--------------------------------`);
 }
 
 async function searchAndDisplayApplianceFilters(input) {
-  for (let i = 0; i < APPLIANCE_FILTERS_ALL.length; i++) {
-    const appliance = APPLIANCE_FILTERS_ALL[i];
+  const updatedFilters = [];
+  for (let i = 0; i < APPLIANCE_FILTERS_DISPLAYED.length; i++) {
+    const appliance = APPLIANCE_FILTERS_DISPLAYED[i];
     let isFound = false;
 
     // Teste si le nom de l'appareil contient l'input
     isFound = appliance.name.toLowerCase().includes(input.toLowerCase());
 
     if (isFound) {
-      APPLIANCE_FILTERS_DISPLAYED.push(appliance);
+      updatedFilters.push(appliance);
     }
   }
+  return updatedFilters;
 }
 
 async function selectFilter(e) {
@@ -70,10 +74,6 @@ async function selectFilter(e) {
 }
 
 async function resetIngredientFiltersDropDown(e) {
-  document
-    .querySelector(".appliances-dropdown")
-    .classList.remove("margin-left-multicol3");
-
   document.getElementById(`ingredients-search`).value = "";
 }
 
@@ -82,14 +82,20 @@ async function resetApplianceFiltersDropDown(e) {
 }
 
 async function initFiltersSearch() {
-  let myDropdown = document.getElementById("dropdownIngredientsButton");
-  myDropdown.addEventListener(
+  let myDropdownButton = document.getElementById("dropdownIngredientsButton");
+  myDropdownButton.addEventListener(
     "hidden.bs.dropdown",
     resetIngredientFiltersDropDown
   );
 
-  myDropdown = document.getElementById("dropdownAppliancesButton");
-  myDropdown.addEventListener(
+  myDropdownButton = document.getElementById("dropdownAppliancesButton");
+  myDropdownButton.addEventListener(
+    "hidden.bs.dropdown",
+    resetApplianceFiltersDropDown
+  );
+
+  myDropdownButton = document.getElementById("dropdownUstensilsButton");
+  myDropdownButton.addEventListener(
     "hidden.bs.dropdown",
     resetApplianceFiltersDropDown
   );
