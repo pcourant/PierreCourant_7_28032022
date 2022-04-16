@@ -69,25 +69,32 @@ async function selectFilter(e) {
   //   document.getElementById(`${type}s-search`).value = "";
 }
 
-async function resetApplianceFiltersDropDown(e) {
+async function resetIngredientFiltersDropDown(e) {
   document
-    .querySelector(".ustensils-dropdown")
-    .classList.remove("margin-left-multicol2");
+    .querySelector(".appliances-dropdown")
+    .classList.remove("margin-left-multicol3");
 
+  document.getElementById(`ingredients-search`).value = "";
+}
+
+async function resetApplianceFiltersDropDown(e) {
   document.getElementById(`appliances-search`).value = "";
 }
 
 async function initFiltersSearch() {
-  applianceFilterInput.addEventListener("input", updateApplianceFilters);
+  let myDropdown = document.getElementById("dropdownIngredientsButton");
+  myDropdown.addEventListener(
+    "hidden.bs.dropdown",
+    resetIngredientFiltersDropDown
+  );
 
-  const myDropdown = document.getElementById("dropdownAppliancesButton");
-  myDropdown.addEventListener("show.bs.dropdown", function () {
-    document
-      .querySelector(".ustensils-dropdown")
-      .classList.add("margin-left-multicol2");
-  });
+  myDropdown = document.getElementById("dropdownAppliancesButton");
   myDropdown.addEventListener(
     "hidden.bs.dropdown",
     resetApplianceFiltersDropDown
   );
+
+  // -----------------------------------------------------------------------
+
+  applianceFilterInput.addEventListener("input", updateApplianceFilters);
 }

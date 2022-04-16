@@ -11919,72 +11919,36 @@ article .card-body {
   margin: 1.389rem 0 0 0;
 }
 
-.filters-search-container {
-  margin: 0.833rem 0 1.389rem;
-}
-
-.filters-search-container button {
-  width: 9.445rem;
-  margin-right: 1.11rem;
-}
-
 .dropdown-toggle::after {
   display: none;
 }
 
-.dropdown button.hidden {
-  display: none;
+.filters-search-container {
+  margin: 0.833rem 0 1.389rem;
 }
 
-.dropdown .dropdown-menu .dropdown-search-container {
-  margin-top: 0.5rem;
-  padding-right: 30px;
+.filters-search-container .dropdown button {
+  width: 9.445rem;
+  margin-right: 1.11rem;
 }
 
-.dropdown .dropdown-menu .dropdown-search-container input {
-  background-color: inherit;
-  color: inherit;
-  border: none;
-  padding: 1.22rem 0;
+.filters-search-container .dropdown button.margin-right-multicol3 {
+  margin-right: 28.72rem;
 }
 
-.dropdown .dropdown-menu .dropdown-search-container input:focus-visible {
-  outline: none;
+.filters-search-container .dropdown button.margin-right-multicol2 {
+  margin-right: 16.357rem;
 }
 
-.dropdown .dropdown-menu .dropdown-search-container input::-webkit-input-placeholder {
-  color: inherit;
-  opacity: 0.5;
+.filters-search-container .dropdown .dropdown-menu.multicol3 {
+  width: 37.06rem;
 }
 
-.dropdown .dropdown-menu .dropdown-search-container input:-ms-input-placeholder {
-  color: inherit;
-  opacity: 0.5;
+.filters-search-container .dropdown .dropdown-menu.multicol2 {
+  width: 24.707rem;
 }
 
-.dropdown .dropdown-menu .dropdown-search-container input::-ms-input-placeholder {
-  color: inherit;
-  opacity: 0.5;
-}
-
-.dropdown .dropdown-menu .dropdown-search-container input::placeholder {
-  color: inherit;
-  opacity: 0.5;
-}
-
-.dropdown .dropdown-menu .dropdown-filters {
-  height: 18.4rem;
-}
-
-.dropdown .dropdown-menu .dropdown-filters .dropdown-item {
-  width: 12.351rem;
-  margin: 0;
-  color: white;
-  padding-top: 0.278rem;
-  padding-bottom: 0.278rem;
-}
-
-.dropdown .dropdown-menu.show {
+.filters-search-container .dropdown .dropdown-menu.show {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -11994,20 +11958,52 @@ article .card-body {
           flex-direction: column;
 }
 
-.dropdown.margin-left-multicol3 {
-  margin-left: 27.61rem;
+.filters-search-container .dropdown .dropdown-menu .dropdown-search-container {
+  margin-top: 0.5rem;
+  padding-right: 30px;
 }
 
-.dropdown.margin-left-multicol2 {
-  margin-left: 15.257rem;
+.filters-search-container .dropdown .dropdown-menu .dropdown-search-container input {
+  background-color: inherit;
+  color: inherit;
+  border: none;
+  padding: 1.22rem 0;
 }
 
-.multicol3 {
-  width: 37.06rem;
+.filters-search-container .dropdown .dropdown-menu .dropdown-search-container input:focus-visible {
+  outline: none;
 }
 
-.multicol2 {
-  width: 24.707rem;
+.filters-search-container .dropdown .dropdown-menu .dropdown-search-container input::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+
+.filters-search-container .dropdown .dropdown-menu .dropdown-search-container input:-ms-input-placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+
+.filters-search-container .dropdown .dropdown-menu .dropdown-search-container input::-ms-input-placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+
+.filters-search-container .dropdown .dropdown-menu .dropdown-search-container input::placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+
+.filters-search-container .dropdown .dropdown-menu .dropdown-filters {
+  height: 18.4rem;
+}
+
+.filters-search-container .dropdown .dropdown-menu .dropdown-filters .dropdown-item {
+  width: 12.351rem;
+  margin: 0;
+  color: white;
+  padding-top: 0.278rem;
+  padding-bottom: 0.278rem;
 }
 
 .ingredients-dropdown .dropdown-menu {

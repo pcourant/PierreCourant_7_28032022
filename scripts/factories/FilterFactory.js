@@ -164,6 +164,69 @@ async function displayIngredientFilters(ingredientFilters) {
   });
 }
 
+async function initDropdownMenuHandlers() {
+  const dropdownIngredientsButton = document.getElementById(
+    "dropdownIngredientsButton"
+  );
+  const dropdownAppliancesButton = document.getElementById(
+    "dropdownAppliancesButton"
+  );
+  const dropdownUstensilsButton = document.getElementById(
+    "dropdownUstensilsButton"
+  );
+
+  dropdownIngredientsButton.addEventListener(
+    "show.bs.dropdown",
+    openDropdownMenuHandler
+  );
+  dropdownAppliancesButton.addEventListener(
+    "show.bs.dropdown",
+    openDropdownMenuHandler
+  );
+  dropdownUstensilsButton.addEventListener(
+    "show.bs.dropdown",
+    openDropdownMenuHandler
+  );
+
+  dropdownIngredientsButton.addEventListener(
+    "hidden.bs.dropdown",
+    closeDropdownMenuHandler
+  );
+  dropdownAppliancesButton.addEventListener(
+    "hidden.bs.dropdown",
+    closeDropdownMenuHandler
+  );
+  dropdownUstensilsButton.addEventListener(
+    "hidden.bs.dropdown",
+    closeDropdownMenuHandler
+  );
+}
+
+async function openDropdownMenuHandler(e) {
+  const button = e.target;
+  const nbOfDropdownitems =
+    button.parentElement.querySelectorAll(".dropdown-item").length;
+  const dropdownMenu = button.parentElement.querySelector(".dropdown-menu");
+
+  if (nbOfDropdownitems > 20) {
+    button.classList.add("margin-right-multicol3");
+    dropdownMenu.classList.add("multicol3");
+  } else if (nbOfDropdownitems > 10) {
+    button.classList.add("margin-right-multicol2");
+    dropdownMenu.classList.add("multicol2");
+  }
+}
+
+async function closeDropdownMenuHandler(e) {
+  const button = e.target;
+  button.classList.remove("margin-right-multicol3");
+  button.classList.remove("margin-right-multicol2");
+
+  const dropdownMenu = button.parentElement.querySelector(".dropdown-menu");
+  dropdownMenu.classList.remove("multicol3");
+  dropdownMenu.classList.remove("multicol2");
+}
+
 async function displayApplianceFilters(applianceFilters) {
   const appliancesDropdownContainer = document.querySelector(
     ".appliances-dropdown .dropdown-filters"
@@ -258,4 +321,6 @@ async function initFilters() {
   await constructAllUstensilFilters();
   // Insère les filtres "ustensil" dans le menu dropdown
   displayUstensilFilters(USTENSIL_FILTERS_DISPLAYED);
+
+  initDropdownMenuHandlers();
 }

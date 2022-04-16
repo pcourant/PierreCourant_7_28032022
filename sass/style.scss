@@ -83,81 +83,81 @@ article .card-body {
   margin: 1.389rem 0 0 0;
 }
 
-.filters-search-container {
-  margin: 0.833rem 0 1.389rem;
-
-  & button {
-    width: 9.445rem;
-    margin-right: 1.11rem;
-  }
-}
-
 .dropdown-toggle::after {
   display: none;
 }
 
-.dropdown {
-  & button {
-    &.hidden {
-      display: none;
+.filters-search-container {
+  margin: 0.833rem 0 1.389rem;
+
+  & .dropdown {
+    // & button {
+    //   &.hidden {
+    //     display: none;
+    //   }
+    // }
+
+    & button {
+      width: 9.445rem;
+      margin-right: 1.11rem;
+
+      &.margin-right-multicol3 {
+        margin-right: 28.72rem;
+      }
+
+      &.margin-right-multicol2 {
+        margin-right: 16.357rem;
+      }
     }
-  }
 
-  & .dropdown-menu {
-    & .dropdown-search-container {
-      margin-top: 0.5rem;
-      padding-right: 30px;
+    & .dropdown-menu {
+      &.multicol3 {
+        width: 37.06rem;
+      }
 
-      & input {
-        background-color: inherit;
-        color: inherit;
-        border: none;
-        padding: 1.22rem 0;
+      &.multicol2 {
+        width: 24.707rem;
+      }
 
-        &:focus-visible {
-          outline: none;
-        }
+      &.show {
+        display: flex;
+        flex-direction: column;
+      }
 
-        &::placeholder {
+      & .dropdown-search-container {
+        margin-top: 0.5rem;
+        padding-right: 30px;
+
+        & input {
+          background-color: inherit;
           color: inherit;
-          opacity: 0.5;
+          border: none;
+          padding: 1.22rem 0;
+
+          &:focus-visible {
+            outline: none;
+          }
+
+          &::placeholder {
+            color: inherit;
+            opacity: 0.5;
+          }
+        }
+      }
+
+      & .dropdown-filters {
+        height: 18.4rem;
+
+        & .dropdown-item {
+          width: 12.351rem;
+          margin: 0;
+          color: white;
+          padding-top: 0.278rem;
+          padding-bottom: 0.278rem;
         }
       }
     }
-
-    & .dropdown-filters {
-      height: 18.4rem;
-
-      & .dropdown-item {
-        width: 12.351rem;
-        margin: 0;
-        color: white;
-        padding-top: 0.278rem;
-        padding-bottom: 0.278rem;
-      }
-    }
-
-    &.show {
-      display: flex;
-      flex-direction: column;
-    }
   }
-
-  &.margin-left-multicol3 {
-    margin-left: 27.61rem;
-  }
-
-  &.margin-left-multicol2 {
-    margin-left: 15.257rem;
-  }
-}
-
-.multicol3 {
-  width: 37.06rem;
-}
-
-.multicol2 {
-  width: 24.707rem;
 }
 
 .ingredients-dropdown {
