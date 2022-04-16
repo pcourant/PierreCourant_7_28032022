@@ -214,6 +214,9 @@ async function openDropdownMenuHandler(e) {
   } else if (nbOfDropdownitems > 10) {
     button.classList.add("margin-right-multicol2");
     dropdownMenu.classList.add("multicol2");
+  } else {
+    button.classList.add("margin-right-singlecol1");
+    dropdownMenu.classList.add("singlecol1");
   }
 }
 
@@ -221,10 +224,12 @@ async function closeDropdownMenuHandler(e) {
   const button = e.target;
   button.classList.remove("margin-right-multicol3");
   button.classList.remove("margin-right-multicol2");
+  button.classList.remove("margin-right-singlecol1");
 
   const dropdownMenu = button.parentElement.querySelector(".dropdown-menu");
   dropdownMenu.classList.remove("multicol3");
   dropdownMenu.classList.remove("multicol2");
+  dropdownMenu.classList.remove("singlecol1");
 }
 
 async function displayApplianceFilters(applianceFilters) {

@@ -11940,12 +11940,20 @@ article .card-body {
   margin-right: 16.357rem;
 }
 
+.filters-search-container .dropdown button.margin-right-singlecol1 {
+  margin-right: 4.016rem;
+}
+
 .filters-search-container .dropdown .dropdown-menu.multicol3 {
   width: 37.06rem;
 }
 
 .filters-search-container .dropdown .dropdown-menu.multicol2 {
   width: 24.707rem;
+}
+
+.filters-search-container .dropdown .dropdown-menu.singlecol1 {
+  width: 12.351rem;
 }
 
 .filters-search-container .dropdown .dropdown-menu.show {

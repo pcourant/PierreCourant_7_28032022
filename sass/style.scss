@@ -108,6 +108,10 @@ article .card-body {
       &.margin-right-multicol2 {
         margin-right: 16.357rem;
       }
+
+      &.margin-right-singlecol1 {
+        margin-right: 4.016rem;
+      }
     }
 
     & .dropdown-menu {
@@ -117,6 +121,10 @@ article .card-body {
 
       &.multicol2 {
         width: 24.707rem;
+      }
+
+      &.singlecol1 {
+        width: 12.351rem;
       }
 
       &.show {
