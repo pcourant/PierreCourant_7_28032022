@@ -1,61 +1,45 @@
 import {
-  INGREDIENT_FILTERS_ALL,
-  APPLIANCE_FILTERS_ALL,
-  USTENSIL_FILTERS_ALL,
-  getIngredientFilters,
-  getApplianceFilters,
-  getUstensilFilters,
-  displayIngredientFilters,
-  displayApplianceFilters,
-  displayUstensilFilters,
-  removeIngredientFilters,
-  removeApplianceFilters,
-  removeUstensilFilters,
+  FILTERS,
+  displayFilters,
+  removeFiltersFromDOM,
 } from "../factories/FilterFactory.js";
 
-export {
-  INGREDIENT_FILTERS_DISPLAYED,
-  APPLIANCE_FILTERS_DISPLAYED,
-  USTENSIL_FILTERS_DISPLAYED,
-  selectFilter,
-  initFiltersSearch,
-};
+export { selectFilter, initFiltersSearch };
 
-const INGREDIENT_FILTERS_DISPLAYED = [];
-const APPLIANCE_FILTERS_DISPLAYED = [];
-const USTENSIL_FILTERS_DISPLAYED = [];
-
-const applianceFilterInput = document.getElementById("appliances-search");
-
-async function updateApplianceFilters(e) {
+async function updateFilters(e) {
   e.preventDefault();
   const searchText = e.target.value;
+  const type = e.target.dataset.type;
 
-  await removeApplianceFilters();
+  // Supprime tous les appareils du DOM
+  await removeFiltersFromDOM(type);
 
-  const updatedFilters = await searchAndDisplayApplianceFilters(searchText);
-  displayApplianceFilters(updatedFilters);
+  const updatedFilters = await searchFilters(searchText, type);
+  displayFilters(type, updatedFilters);
 
   console.log(`--------------------------------`);
-  console.log(`$$$ updateApplianceFilters ("${searchText}") :`);
-  console.log("APPLIANCE_FILTERS_DISPLAYED");
-  console.log(APPLIANCE_FILTERS_DISPLAYED);
-  console.log("updatedFilters");
+  console.log(`$$$ updateFilters (${searchText} / ${type}) :`);
   console.log(updatedFilters);
   console.log(`--------------------------------`);
 }
 
-async function searchAndDisplayApplianceFilters(input) {
+async function searchFilters(input, type) {
+  // Création de la liste de résultat
   const updatedFilters = [];
-  for (let i = 0; i < APPLIANCE_FILTERS_DISPLAYED.length; i++) {
-    const appliance = APPLIANCE_FILTERS_DISPLAYED[i];
+
+  const displayedFilters = FILTERS.find(
+    (filters) => filters.type === type
+  ).displayed;
+
+  for (let i = 0; i < displayedFilters.length; i++) {
+    const filter = displayedFilters[i];
     let isFound = false;
 
     // Teste si le nom de l'appareil contient l'input
-    isFound = appliance.name.toLowerCase().includes(input.toLowerCase());
+    isFound = filter.name.toLowerCase().includes(input.toLowerCase());
 
     if (isFound) {
-      updatedFilters.push(appliance);
+      updatedFilters.push(filter);
     }
   }
   return updatedFilters;
@@ -73,34 +57,30 @@ async function selectFilter(e) {
   //   document.getElementById(`${type}s-search`).value = "";
 }
 
-async function resetIngredientFiltersDropDown(e) {
-  document.getElementById(`ingredients-search`).value = "";
-}
+// async function resetIngredientFiltersDropDown() {
+//   document.getElementById(`ingredients-search`).value = "";
+// }
 
-async function resetApplianceFiltersDropDown(e) {
-  document.getElementById(`appliances-search`).value = "";
+async function resetSearchFiltersInput(e) {
+  const type = e.target.dataset.type;
+  document.getElementById(`${type}s-search`).value = "";
 }
 
 async function initFiltersSearch() {
-  let myDropdownButton = document.getElementById("dropdownIngredientsButton");
-  myDropdownButton.addEventListener(
-    "hidden.bs.dropdown",
-    resetIngredientFiltersDropDown
-  );
+  FILTERS.forEach((filters) => {
+    const dropdownButton = document.getElementById(
+      `${filters.type}DropdownButton`
+    );
+    dropdownButton.addEventListener(
+      "hidden.bs.dropdown",
+      resetSearchFiltersInput
+    );
 
-  myDropdownButton = document.getElementById("dropdownAppliancesButton");
-  myDropdownButton.addEventListener(
-    "hidden.bs.dropdown",
-    resetApplianceFiltersDropDown
-  );
-
-  myDropdownButton = document.getElementById("dropdownUstensilsButton");
-  myDropdownButton.addEventListener(
-    "hidden.bs.dropdown",
-    resetApplianceFiltersDropDown
-  );
+    const filtersSearchInput = document.getElementById(
+      `${filters.type}s-search`
+    );
+    filtersSearchInput.addEventListener("input", updateFilters);
+  });
 
   // -----------------------------------------------------------------------
-
-  applianceFilterInput.addEventListener("input", updateApplianceFilters);
 }
