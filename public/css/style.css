@@ -2612,7 +2612,7 @@ textarea.form-control-lg {
   pointer-events: none;
   -webkit-filter: none;
           filter: none;
-  opacity: 0.65;
+  opacity: 1;
 }
 
 .form-range {
@@ -3146,7 +3146,7 @@ textarea.form-control-lg {
 .btn:disabled, .btn.disabled,
 fieldset:disabled .btn {
   pointer-events: none;
-  opacity: 0.65;
+  opacity: 1;
 }
 
 .btn-primary {
@@ -11915,12 +11915,39 @@ article .card-body {
   --bs-aspect-ratio: 46.8%;
 }
 
-.filters-applied-container {
-  margin: 1.389rem 0 0 0;
+section.search-section form {
+  margin-bottom: 0.278rem;
 }
 
-.dropdown-toggle::after {
-  display: none;
+.filters-applied-container button {
+  padding: 0 1.22rem 0 1.11rem;
+  height: 2.056rem;
+  font-size: 0.777rem;
+  margin-right: 0.56rem;
+  margin-top: 1.11rem;
+}
+
+.filters-applied-container button span {
+  width: 1.11rem;
+  height: 1.11rem;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  border: 2.3px solid white;
+  border-radius: 50%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 0.72rem;
+  pointer-events: all;
+}
+
+.filters-applied-container button span:hover {
+  cursor: pointer;
+  color: inherit;
 }
 
 .filters-search-container {
@@ -12012,6 +12039,10 @@ article .card-body {
   color: white;
   padding-top: 0.278rem;
   padding-bottom: 0.278rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }
 
 .ingredients-dropdown .dropdown-menu {

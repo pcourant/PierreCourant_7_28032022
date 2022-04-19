@@ -1,4 +1,3 @@
-import { selectFilter } from "../components/filtersSearch.js";
 import { RECIPES_ALL } from "../factories/RecipeFactory.js";
 export {
   FILTERS,
@@ -36,7 +35,6 @@ const FILTERS = [
     displayed: [],
   },
 ];
-
 Object.freeze(FILTERS);
 
 function filterFactory(type, name) {
@@ -286,6 +284,15 @@ async function updateFiltersLists(recipes) {
   });
 
   getFiltersFromRecipes(recipes);
+}
+
+async function selectFilter(e) {
+  const type = e.target.dataset.type;
+  const name = e.target.textContent;
+
+  console.log(`--------------------------------`);
+  console.log(`$$$ selectFilter => type: ${type} / name: ${name}`);
+  console.log(`--------------------------------`);
 }
 
 // ----------------------------------------------------------------------------------------

@@ -4,7 +4,7 @@ import {
   removeFiltersFromDOM,
 } from "../factories/FilterFactory.js";
 
-export { selectFilter, initFiltersSearch };
+export { initFiltersSearch };
 
 async function updateFilters(e) {
   e.preventDefault();
@@ -43,18 +43,6 @@ async function searchFilters(input, type) {
     }
   }
   return updatedFilters;
-}
-
-async function selectFilter(e) {
-  const type = e.target.dataset.type;
-  const name = e.target.textContent;
-
-  console.log(`--------------------------------`);
-  console.log(`$$$ selectFilter => type: ${type} / name: ${name}`);
-  console.log(`--------------------------------`);
-
-  console.log(document.getElementById(`${type}s-search`));
-  //   document.getElementById(`${type}s-search`).value = "";
 }
 
 // async function resetIngredientFiltersDropDown() {
