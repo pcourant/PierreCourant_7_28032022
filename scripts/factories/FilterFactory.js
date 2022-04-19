@@ -21,16 +21,19 @@ Object.freeze(TYPES);
 const FILTERS = [
   {
     type: "ingredient",
+    color: "secondary",
     all: [],
     displayed: [],
   },
   {
     type: "appliance",
+    color: "success",
     all: [],
     displayed: [],
   },
   {
     type: "ustensil",
+    color: "danger",
     all: [],
     displayed: [],
   },
@@ -183,9 +186,7 @@ async function initDropdownMenuHandlers() {
 
 function openDropdownMenuHandler(e) {
   const type = e.target.dataset.type;
-  const filters = FILTERS.find((filters) => {
-    return filters.type === type;
-  });
+  const filters = FILTERS.find((filters) => filters.type === type);
 
   displayFilters(type, filters.displayed);
 }
@@ -286,13 +287,60 @@ async function updateFiltersLists(recipes) {
   getFiltersFromRecipes(recipes);
 }
 
-async function selectFilter(e) {
+function displayFilterTag(type, name) {
+  const buttonDOM = document.createElement("button");
+  buttonDOM.classList.add("btn");
+  const filters = FILTERS.find((filters) => filters.type === type);
+  const color = filters.color;
+  buttonDOM.classList.add(`btn-${color}`);
+  buttonDOM.classList.add("text-white");
+  buttonDOM.classList.add("fw-bold");
+  buttonDOM.classList.add("shadow-none");
+  buttonDOM.classList.add("disabled");
+  buttonDOM.setAttribute("type", "button");
+  buttonDOM.setAttribute("data-type", type);
+
+  buttonDOM.textContent = name;
+
+  const span = constructFilterTagClosureSpan();
+  buttonDOM.appendChild(span);
+
+  document.querySelector(".filters-applied-container").appendChild(buttonDOM);
+
+  return buttonDOM;
+}
+
+function constructFilterTagClosureSpan() {
+  const span = document.createElement("span");
+  span.classList.add("fa-solid");
+  span.classList.add("fa-xmark");
+  span.classList.add("fa-xs");
+
+  return span;
+}
+
+function removeTagFilter(e) {
+  const tag = e.target.parentElement;
+  const type = tag.dataset.type;
+  const name = tag.textContent;
+
+  console.log(`--------------------------------`);
+  console.log(`$$$ removeTagFilter => type: ${type} / name: ${name}`);
+  console.log(`--------------------------------`);
+
+  document.querySelector(".filters-applied-container").removeChild(tag);
+}
+
+function selectFilter(e) {
   const type = e.target.dataset.type;
   const name = e.target.textContent;
 
   console.log(`--------------------------------`);
   console.log(`$$$ selectFilter => type: ${type} / name: ${name}`);
   console.log(`--------------------------------`);
+
+  const tag = displayFilterTag(type, name);
+  tag.querySelector("span").addEventListener("click", removeTagFilter);
 }
 
 // ----------------------------------------------------------------------------------------
