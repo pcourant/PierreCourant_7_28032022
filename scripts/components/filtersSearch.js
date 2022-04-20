@@ -11,7 +11,7 @@ async function updateFilters(e) {
   const searchText = e.target.value;
   const type = e.target.dataset.type;
 
-  // Supprime tous les appareils du DOM
+  // Supprime tous les filtres du DOM
   await removeFiltersFromDOM(type);
 
   const updatedFilters = await searchFilters(searchText, type);

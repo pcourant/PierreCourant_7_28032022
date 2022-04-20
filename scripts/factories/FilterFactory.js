@@ -1,4 +1,8 @@
 import { RECIPES_ALL } from "../factories/RecipeFactory.js";
+import {
+  updateRecipesWithAddedFilter,
+  updateRecipesWithRemovedFilter,
+} from "../components/recipesSearch.js";
 export {
   FILTERS,
   initFilters,
@@ -24,18 +28,21 @@ const FILTERS = [
     color: "secondary",
     all: [],
     displayed: [],
+    applied: [],
   },
   {
     type: "appliance",
     color: "success",
     all: [],
     displayed: [],
+    applied: [],
   },
   {
     type: "ustensil",
     color: "danger",
     all: [],
     displayed: [],
+    applied: [],
   },
 ];
 Object.freeze(FILTERS);
@@ -122,45 +129,55 @@ async function getFiltersFromRecipes(recipes) {
   recipes.forEach((recipe) => {
     // INGREDIENT FILTERS
     recipe.ingredients.forEach((ingredient) => {
-      // si l'ingrédient n'est pas déjà présent on l'insère
+      // Si l'ingrédient n'est pas dans la liste des filtres appliqués
       if (
-        FILTERS[TYPES.INGREDIENT].displayed.some(
-          (i) => i.name === ingredient.ingredient
-        ) === false
+        false ===
+        FILTERS[TYPES.INGREDIENT].applied.includes(ingredient.ingredient)
       ) {
-        // Récupère le filtre
-        const ingredientFilter = FILTERS[TYPES.INGREDIENT].all.find(
-          (i) => i.name === ingredient.ingredient
-        );
-        FILTERS[TYPES.INGREDIENT].displayed.push(ingredientFilter);
+        // si l'ingrédient n'est pas déjà présent on l'insère
+        if (
+          false ===
+          FILTERS[TYPES.INGREDIENT].displayed.some(
+            (i) => i.name === ingredient.ingredient
+          )
+        ) {
+          // Récupère le filtre
+          const ingredientFilter = FILTERS[TYPES.INGREDIENT].all.find(
+            (i) => i.name === ingredient.ingredient
+          );
+          FILTERS[TYPES.INGREDIENT].displayed.push(ingredientFilter);
+        }
       }
     });
 
     // APPLIANCE FILTERS
-    if (
-      FILTERS[TYPES.APPLIANCE].displayed.some(
-        (a) => a.name === recipe.appliance
-      ) === false
-    ) {
-      // Récupère le filtre
-      const applianceFilter = FILTERS[TYPES.APPLIANCE].all.find(
-        (a) => a.name === recipe.appliance
-      );
-      FILTERS[TYPES.APPLIANCE].displayed.push(applianceFilter);
+    if (false === FILTERS[TYPES.APPLIANCE].applied.includes(recipe.appliance)) {
+      if (
+        FILTERS[TYPES.APPLIANCE].displayed.some(
+          (a) => a.name === recipe.appliance
+        ) === false
+      ) {
+        // Récupère le filtre
+        const applianceFilter = FILTERS[TYPES.APPLIANCE].all.find(
+          (a) => a.name === recipe.appliance
+        );
+        FILTERS[TYPES.APPLIANCE].displayed.push(applianceFilter);
+      }
     }
 
     // USTENSIL FILTERS
     recipe.ustensils.forEach((ustensil) => {
-      // console.log();
-      if (
-        FILTERS[TYPES.USTENSIL].displayed.some((u) => u.name === ustensil) ===
-        false
-      ) {
-        // Récupère le filtre
-        const ustensilFilter = FILTERS[TYPES.USTENSIL].all.find(
-          (u) => u.name === ustensil
-        );
-        FILTERS[TYPES.USTENSIL].displayed.push(ustensilFilter);
+      if (false === FILTERS[TYPES.USTENSIL].applied.includes(ustensil)) {
+        if (
+          FILTERS[TYPES.USTENSIL].displayed.some((u) => u.name === ustensil) ===
+          false
+        ) {
+          // Récupère le filtre
+          const ustensilFilter = FILTERS[TYPES.USTENSIL].all.find(
+            (u) => u.name === ustensil
+          );
+          FILTERS[TYPES.USTENSIL].displayed.push(ustensilFilter);
+        }
       }
     });
   });
@@ -288,11 +305,11 @@ async function updateFiltersLists(recipes) {
 }
 
 function displayFilterTag(type, name) {
+  const filters = FILTERS.find((filters) => filters.type === type);
+
   const buttonDOM = document.createElement("button");
   buttonDOM.classList.add("btn");
-  const filters = FILTERS.find((filters) => filters.type === type);
-  const color = filters.color;
-  buttonDOM.classList.add(`btn-${color}`);
+  buttonDOM.classList.add(`btn-${filters.color}`);
   buttonDOM.classList.add("text-white");
   buttonDOM.classList.add("fw-bold");
   buttonDOM.classList.add("shadow-none");
@@ -319,28 +336,39 @@ function constructFilterTagClosureSpan() {
   return span;
 }
 
-function removeTagFilter(e) {
-  const tag = e.target.parentElement;
-  const type = tag.dataset.type;
-  const name = tag.textContent;
+function removeFilter(e) {
+  const filterDOM = e.target.parentElement;
+  const type = filterDOM.dataset.type;
+  const filter = filterDOM.textContent;
 
-  console.log(`--------------------------------`);
-  console.log(`$$$ removeTagFilter => type: ${type} / name: ${name}`);
-  console.log(`--------------------------------`);
+  console.log(`----------------------------------------------------------`);
+  console.log(`$$$ removeFilter => type: ${type} / filter: ${filter}`);
 
-  document.querySelector(".filters-applied-container").removeChild(tag);
+  document.querySelector(".filters-applied-container").removeChild(filterDOM);
+
+  updateRecipesWithRemovedFilter(type, filter);
 }
 
 function selectFilter(e) {
   const type = e.target.dataset.type;
-  const name = e.target.textContent;
+  const filter = e.target.textContent;
+  const filters = FILTERS.find((filters) => filters.type === type);
 
-  console.log(`--------------------------------`);
-  console.log(`$$$ selectFilter => type: ${type} / name: ${name}`);
-  console.log(`--------------------------------`);
+  console.log(`----------------------------------------------------------`);
+  console.log(
+    `$$$ selectFilter => type: ${type} / filter: ${filter}`,
+    filters.applied
+  );
 
-  const tag = displayFilterTag(type, name);
-  tag.querySelector("span").addEventListener("click", removeTagFilter);
+  // Si le filtre n'est pas déjà appliqué
+  if (!filters.applied.includes(filter)) {
+    const filterDOM = displayFilterTag(type, filter);
+    filterDOM.querySelector("span").addEventListener("click", removeFilter);
+
+    updateRecipesWithAddedFilter(type, filter);
+
+    // removeFilterFromDropdown(type, filter);
+  }
 }
 
 // ----------------------------------------------------------------------------------------

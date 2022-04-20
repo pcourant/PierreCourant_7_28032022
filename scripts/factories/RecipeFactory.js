@@ -1,5 +1,5 @@
 import { RECIPES_DATABASE } from "../data/recipes.js";
-import { RECIPES_DISPLAYED } from "../components/mainSearch.js";
+import { RECIPES_DISPLAYED } from "../components/recipesSearch.js";
 export {
   RECIPES_ALL,
   initRecipes,
