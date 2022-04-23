@@ -1,37 +1,75 @@
 import {
-  RECIPES_ALL,
-  displayAllRecipes,
-  removeAllRecipes,
+  RECIPES,
+  displayRecipes,
+  displayRecipe,
+  removeAllRecipesFromDOM,
 } from "../factories/RecipeFactory.js";
-import { FILTERS, updateFiltersLists } from "../factories/FilterFactory.js";
-export {
-  RECIPES_DISPLAYED,
-  updateRecipesWithAddedFilter,
-  updateRecipesWithRemovedFilter,
-  initMainSearch,
-};
+import { updateDropdownMenus } from "../factories/FilterFactory.js";
+export { initMainSearch };
 
-const RECIPES_DISPLAYED = [];
+// Initialise l'event listener de la barre de recherche
+async function initMainSearch() {
+  const searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", updateRecipes);
+}
 
-const searchInput = document.getElementById("search-input");
+async function updateRecipes(e) {
+  e.preventDefault();
+  const input = e.target.value;
 
-async function searchAndDisplay(input) {
-  for (let i = 0; i < RECIPES_ALL.length; i++) {
-    const recipe = RECIPES_ALL[i];
-    let isFound = false;
+  // Reset searched result
+  RECIPES.SEARCHED = [];
+  // Efface les recettes affichées
+  await removeAllRecipesFromDOM();
+
+  // Si l'input est inférieur à 3 caractères, pas de recherche
+  if (input.length < 3) {
+    RECIPES.SEARCHED = RECIPES.ALL.slice(0, RECIPES.ALL.length);
+    // Affiche les recettes filtrées par l'input de l'utilisateur
+    await displayRecipes(RECIPES.FILTERED);
+  } else {
+    await searchAndDisplay(
+      input,
+      RECIPES.ALL,
+      RECIPES.FILTERED,
+      RECIPES.SEARCHED
+    );
+  }
+
+  // Update filters lists
+  updateDropdownMenus(RECIPES.DISPLAYED);
+
+  console.log(`--------------------------------`);
+  console.log(`$$$ UPDATE RECIPES ("${input}") :`);
+  console.log(`RECIPES :`);
+  console.log(RECIPES.DISPLAYED);
+  console.log(`--------------------------------`);
+}
+
+async function searchAndDisplay(
+  input,
+  recipesALL,
+  recipesFILTERED,
+  recipesSEARCHED
+) {
+  for (let i = 0; i < recipesALL.length; i++) {
+    const recipe = recipesALL[i];
+    let inputIsFound = false;
 
     // Teste si le titre contient l'input
-    isFound = recipe.name.toLowerCase().includes(input.toLowerCase());
+    inputIsFound = recipe.name.toLowerCase().includes(input.toLowerCase());
 
     // Teste si la description contient l'input
-    if (!isFound) {
-      isFound = recipe.description.toLowerCase().includes(input.toLowerCase());
+    if (!inputIsFound) {
+      inputIsFound = recipe.description
+        .toLowerCase()
+        .includes(input.toLowerCase());
 
       // Teste si un ingrédient contient l'input
-      if (!isFound) {
+      if (!inputIsFound) {
         let j = 0;
-        while (!isFound && j < recipe.ingredients.length) {
-          isFound = recipe.ingredients[j].ingredient
+        while (!inputIsFound && j < recipe.ingredients.length) {
+          inputIsFound = recipe.ingredients[j].ingredient
             .toLowerCase()
             .includes(input.toLowerCase());
           j++;
@@ -39,186 +77,15 @@ async function searchAndDisplay(input) {
       }
     }
 
-    // Si l'input apparaît quelque part, on affiche la recette
-    if (isFound) {
-      recipe.displayRecipeCard();
-      RECIPES_DISPLAYED.push(recipe);
-    }
-  }
-}
+    // Si l'input apparaît quelque part, insère dans le tableau résultat
+    if (inputIsFound) {
+      recipesSEARCHED.push(recipe);
 
-async function updateRecipes(e) {
-  e.preventDefault();
-  const searchText = e.target.value;
-
-  // Efface toutes les recettes présentes
-  await removeAllRecipes();
-  RECIPES_DISPLAYED.splice(0, RECIPES_DISPLAYED.length);
-
-  // Affiche les recettes filtrées par l'input de l'utilisateur
-  if (searchText.length < 3) {
-    displayAllRecipes();
-  } else {
-    await searchAndDisplay(searchText);
-  }
-
-  // Update filters lists
-  updateFiltersLists(RECIPES_DISPLAYED);
-
-  console.log(`--------------------------------`);
-  console.log(`$$$ UPDATE RECIPES ("${searchText}") :`);
-  console.log(`RECIPES :`);
-  console.log(RECIPES_DISPLAYED);
-  console.log(`--------------------------------`);
-}
-
-async function updateRecipesWithAddedFilter(type, filter) {
-  const appliedFilters = FILTERS.find(
-    (filters) => filters.type === type
-  ).applied;
-
-  appliedFilters.push(filter);
-
-  const recipesToFilter = RECIPES_DISPLAYED.splice(0, RECIPES_DISPLAYED.length);
-  await filterRecipes(type, filter, recipesToFilter);
-
-  // Update filters lists
-  updateFiltersLists(RECIPES_DISPLAYED);
-
-  console.log(`--------------------------------`);
-  console.log(`$$$ updateRecipesWithAddedFilter (${type}, ${filter}) :`);
-  console.log(`RECIPES :`);
-  console.log(RECIPES_DISPLAYED);
-  console.log(`--------------------------------`);
-}
-
-async function updateRecipesWithRemovedFilter(type, filter) {
-  const appliedFilters = FILTERS.find(
-    (filters) => filters.type === type
-  ).applied;
-
-  console.log(`$$$ updateRecipesWithRemovedFilter ${type}, ${filter} : `);
-  console.log(`appliedFilters ${type} :`);
-  console.log(appliedFilters);
-
-  appliedFilters.splice(appliedFilters.indexOf(filter), 1);
-
-  console.log(`appliedFilters ${type} :`);
-  console.log(appliedFilters);
-
-  // Efface toutes les recettes présentes
-  await removeAllRecipes();
-  RECIPES_DISPLAYED.splice(0, RECIPES_DISPLAYED.length);
-
-  // Si aucun filtre présent, affiche toutes les recette.
-  let filterCount = 0;
-  FILTERS.forEach((f) => (filterCount += f.applied.length));
-  if (filterCount === 0) {
-    displayAllRecipes();
-  }
-  // Ajoute les recettes filtrés
-  else {
-    await filterAllRecipesWithAllFilters();
-  }
-
-  // Update filters lists
-  updateFiltersLists(RECIPES_DISPLAYED);
-
-  console.log(`--------------------------------`);
-  console.log(`$$$ updateRecipesWithRemovedFilter (${type}, ${filter}) :`);
-  console.log(`RECIPES :`);
-  console.log(RECIPES_DISPLAYED);
-  console.log(`--------------------------------`);
-}
-
-async function filterRecipes(type, filter, recipes) {
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
-    let isFound = false;
-    let j = 0;
-    switch (type) {
-      case "ingredient":
-        // Teste si la recette contient l'ingrédient
-        while (!isFound && j < recipe.ingredients.length) {
-          isFound = recipe.ingredients[j].ingredient === filter;
-          j++;
-        }
-        break;
-      case "appliance":
-        // Teste si la recette contient l'appareil
-        isFound = recipe.appliance === filter;
-        break;
-      case "ustensil":
-        // Teste si la recette contient l'ustensile
-        while (!isFound && j < recipe.ustensils.length) {
-          isFound = recipe.ustensils[j] === filter;
-          j++;
-        }
-        break;
-    }
-    // Si le filtre n'est pas présent, suppression de la carte recette du DOM
-    if (!isFound) {
-      recipe.removeRecipeCard();
-    }
-    // Si le filtre est présent, ajout à la liste de recettes affichées
-    else {
-      RECIPES_DISPLAYED.push(recipe);
-    }
-  }
-}
-
-async function filterAllRecipesWithAllFilters() {
-  for (let i = 0; i < RECIPES_ALL.length; i++) {
-    const recipe = RECIPES_ALL[i];
-    let containsAllFilter = true;
-
-    let x = 0;
-    while (containsAllFilter && x < FILTERS.length) {
-      const filters = FILTERS[x];
-      const type = filters.type;
-      let j = 0;
-      while (containsAllFilter && j < filters.applied.length) {
-        let filter = filters.applied[j];
-        let isFound = false;
-        let k = 0;
-        switch (type) {
-          case "ingredient":
-            // Teste si la recette contient l'ingrédient
-            while (!isFound && k < recipe.ingredients.length) {
-              isFound = recipe.ingredients[k].ingredient === filter;
-              k++;
-            }
-            break;
-          case "appliance":
-            // Teste si la recette contient l'appareil
-            isFound = recipe.appliance === filter;
-            break;
-          case "ustensil":
-            // Teste si la recette contient l'ustensile
-            while (!isFound && k < recipe.ustensils.length) {
-              isFound = recipe.ustensils[k] === filter;
-              k++;
-            }
-            break;
-        }
-        // Si le filtre n'est présent pas présent
-        if (!isFound) {
-          containsAllFilter = false;
-          // Sortie des deux while loop
-        }
-        j++;
+      // Si la recette est aussi dans le tableau des recettes filtrées
+      if (recipesFILTERED.includes(recipe)) {
+        // Affichage de la recette
+        displayRecipe(recipe);
       }
-      x++;
-    }
-
-    // Si tous les filtres sont présents, affichage de la recette
-    if (containsAllFilter) {
-      recipe.displayRecipeCard();
-      RECIPES_DISPLAYED.push(recipe);
     }
   }
-}
-
-async function initMainSearch() {
-  searchInput.addEventListener("input", updateRecipes);
 }

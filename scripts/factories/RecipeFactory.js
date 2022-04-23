@@ -1,15 +1,32 @@
 import { RECIPES_DATABASE } from "../data/recipes.js";
-import { RECIPES_DISPLAYED } from "../components/recipesSearch.js";
 export {
-  RECIPES_ALL,
+  RECIPES,
   initRecipes,
-  getAllRecipes,
-  displayAllRecipes,
-  removeAllRecipes,
+  displayRecipes,
+  displayRecipe,
+  removeAllRecipesFromDOM,
 };
 
-const RECIPES_ALL = [];
+const RECIPES = {
+  // Tableau contenant tous les objets "recette" de la database du fichier recipes.js
+  ALL: [],
+  // Recettes issues du résultat de la barre de recherche
+  SEARCHED: [],
+  // Recettes issues du résultat  du filtrage par tags
+  FILTERED: [],
+  // Intersection des deux résultats précédents contenant toutes les recettes affichées dans le DOM
+  DISPLAYED: [],
+};
 
+// Construit toutes les recettes et les affiche dans le DOM
+async function initRecipes() {
+  // Récupère les recettes du fichier DATA
+  await getAllRecipes(RECIPES_DATABASE);
+  // Affiche les recettes
+  displayRecipes(RECIPES.ALL);
+}
+
+// Crée l'objet "recette" à partir du fichier DATA
 function recipeFactory(data) {
   let {
     id,
@@ -24,6 +41,7 @@ function recipeFactory(data) {
 
   let recipeCardDOM = undefined;
 
+  // Consrtuit le html de la carte recette
   function constructorRecipeCard() {
     // Création de la colonne contenant une recette
     const divContainer = document.createElement("div");
@@ -158,7 +176,7 @@ function recipeFactory(data) {
     columnInstructions.classList.add("col");
     columnInstructions.classList.add("m-0");
     columnInstructions.classList.add("p-0");
-    // Ajout des instrcutions
+    // Ajout des instructions
     const instructionsParagraph = document.createElement("p");
     columnInstructions.appendChild(instructionsParagraph);
     instructionsParagraph.classList.add("card-text");
@@ -168,10 +186,9 @@ function recipeFactory(data) {
 
     //Sauvegarde the DOM element
     this.recipeCardDOM = divContainer;
-
-    return divContainer;
   }
 
+  // Affiche la carte dans le DOM
   function displayRecipeCard() {
     const recipesContainer = document.querySelector(".recipes-section .row");
     if (this.recipeCardDOM !== undefined) {
@@ -179,14 +196,15 @@ function recipeFactory(data) {
     }
   }
 
+  // Supprime la carte du DOM
   function removeRecipeCard() {
     const recipesContainer = document.querySelector(".recipes-section .row");
     if (this.recipeCardDOM !== undefined) {
       recipesContainer.removeChild(this.recipeCardDOM);
-      // console.log("removeRecipeCard : ", this.recipeCardDOM);
     }
   }
 
+  // Return l'objet recette
   return {
     id,
     name,
@@ -203,22 +221,36 @@ function recipeFactory(data) {
   };
 }
 
+// Récupère toutes les recettes du fichier DATA et les construit
 async function getAllRecipes(recipesDATA) {
   recipesDATA.forEach((recipeDATA) => {
+    // Construit l'objet
     const recipe = recipeFactory(recipeDATA);
+    // Construit le carte DOM
     recipe.constructorRecipeCard();
-    RECIPES_ALL.push(recipe);
+    // Sauvegarde la recette dans les tableaux
+    RECIPES.ALL.push(recipe);
+    RECIPES.SEARCHED.push(recipe);
+    RECIPES.FILTERED.push(recipe);
   });
 }
 
-async function displayAllRecipes() {
-  RECIPES_ALL.forEach((recipe) => {
-    recipe.displayRecipeCard();
-    RECIPES_DISPLAYED.push(recipe);
+// Affiche toutes les cartes recettes dans le DOM
+async function displayRecipes(recipes) {
+  recipes.forEach((recipe) => {
+    displayRecipe(recipe);
   });
 }
 
-async function removeAllRecipes() {
+// Affiche la carte recette dans le DOM
+async function displayRecipe(recipe) {
+  recipe.displayRecipeCard();
+  // Sauvegarde la recette affichée dans un tableau
+  RECIPES.DISPLAYED.push(recipe);
+}
+
+// Supprime toutes les cartes recettes dans le DOM
+async function removeAllRecipesFromDOM() {
   const recipesSection = document.querySelector("section.recipes-section");
   const recipesContainer = document.querySelector(".recipes-section .row");
 
@@ -233,11 +265,7 @@ async function removeAllRecipes() {
   newRecipesContainer.classList.add("g-xxl-5");
 
   recipesSection.appendChild(newRecipesContainer);
-}
 
-async function initRecipes() {
-  // Récupère les recettes du fichier DATA
-  await getAllRecipes(RECIPES_DATABASE);
-  // Affiche les recettes
-  displayAllRecipes();
+  // Vide le tableau des recettes affichées
+  RECIPES.DISPLAYED = [];
 }

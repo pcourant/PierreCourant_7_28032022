@@ -1,20 +1,18 @@
-import { RECIPES_ALL } from "../factories/RecipeFactory.js";
+import { RECIPES } from "../factories/RecipeFactory.js";
 import {
-  updateRecipesWithAddedFilter,
-  updateRecipesWithRemovedFilter,
-} from "../components/recipesSearch.js";
+  updateRecipesWithNewTag,
+  updateRecipesWithRemovedTag,
+} from "../components/filtersSearch.js";
 export {
+  TYPES,
   FILTERS,
   initFilters,
-  displayFilters,
-  removeFiltersFromDOM,
-  updateFiltersLists,
+  displayDropdownMenuFilters,
+  removeDropdownMenuFilters,
+  updateDropdownMenus,
 };
 
-// const FILTERS_ENUM = {
-//   0: INGREDIENTS,
-// }
-
+// Énumération des types de filtres
 const TYPES = {
   INGREDIENT: 0,
   APPLIANCE: 1,
@@ -22,170 +20,172 @@ const TYPES = {
 };
 Object.freeze(TYPES);
 
+// Objet contenant les différents types de filtres et leurs listes respectives
 const FILTERS = [
   {
     type: "ingredient",
     color: "secondary",
     all: [],
-    displayed: [],
-    applied: [],
+    dropdownMenu: [],
+    tags: [],
   },
   {
     type: "appliance",
     color: "success",
     all: [],
-    displayed: [],
-    applied: [],
+    dropdownMenu: [],
+    tags: [],
   },
   {
     type: "ustensil",
     color: "danger",
     all: [],
-    displayed: [],
-    applied: [],
+    dropdownMenu: [],
+    tags: [],
   },
 ];
 Object.freeze(FILTERS);
 
-function filterFactory(type, name) {
-  let dropdownDOM = undefined;
-  let filterDOM = undefined;
+// ----------------------------------------------------------------------------------------
 
-  function constructorDropdownDOM() {
+// Fonction d'initialisation appelé au chargement de la page
+async function initFilters() {
+  // Construit les filters et initialise les listes de filtres
+  await constructAllFilters();
+
+  // Initialise les écouteurs d'évènement des menus dropdowns
+  initDropdownMenuEventListeners();
+}
+
+// ----------------------------------------------------------------------------------------
+
+// Construction de l'objet "filtre"
+function filterFactory(type, name) {
+  let dropdownMenuDOM = undefined;
+  let tagDOM = undefined;
+
+  // Récupération de la couleur Bootstrap en fonction du type
+  const color = FILTERS.find((filters) => filters.type === type).color;
+
+  // Construit l'élément filtre à insérer dans le dropdown menu
+  function constructorDropdownMenuDOM() {
     const p = document.createElement("p");
     p.classList.add("dropdown-item");
     p.setAttribute("data-type", type);
     p.textContent = name;
-    p.addEventListener("click", selectFilter);
+    p.addEventListener("click", addNewTag);
 
-    this.dropdownDOM = p;
-
-    return p;
+    this.dropdownMenuDOM = p;
   }
 
-  function constructorFilterDOM() {}
+  // Construit l'élément filtre à insérer dans la partie des filtres appliqués
+  function constructorTagDOM() {
+    const button = document.createElement("button");
+    button.classList.add("btn");
+    button.classList.add(`btn-${this.color}`);
+    button.classList.add("text-white");
+    button.classList.add("fw-bold");
+    button.classList.add("shadow-none");
+    button.classList.add("disabled");
+    button.setAttribute("type", "button");
+    button.setAttribute("data-type", type);
+
+    button.textContent = name;
+
+    const span = constructTagRemovingCross();
+    button.appendChild(span);
+
+    this.tagDOM = button;
+  }
 
   return {
     type,
     name,
-    dropdownDOM,
-    filterDOM,
-    constructorDropdownDOM,
-    constructorFilterDOM,
+    color,
+    dropdownMenuDOM,
+    tagDOM,
+    constructorDropdownMenuDOM,
+    constructorTagDOM,
   };
 }
 
-async function constructAllFilters() {
-  RECIPES_ALL.forEach((recipe) => {
-    // INGREDIENT filters
-    recipe.ingredients.forEach((ingredient) => {
-      // si l'ingrédient n'est pas déjà présent on l'insère
-      if (
-        FILTERS[TYPES.INGREDIENT].all.some(
-          (i) => i.name === ingredient.ingredient
-        ) === false
-      ) {
-        const ingredientFilter = filterFactory(
-          "ingredient",
-          ingredient.ingredient
-        );
-        ingredientFilter.constructorDropdownDOM();
-        ingredientFilter.constructorFilterDOM();
-        FILTERS[TYPES.INGREDIENT].all.push(ingredientFilter);
-        FILTERS[TYPES.INGREDIENT].displayed.push(ingredientFilter);
-      }
-    });
+// Construit la petite croix entourée qui permet de supprimer l'application du filtre
+function constructTagRemovingCross() {
+  const span = document.createElement("span");
+  span.classList.add("fa-solid");
+  span.classList.add("fa-xmark");
+  span.classList.add("fa-xs");
 
-    // APPLIANCE filters
-    if (
-      FILTERS[TYPES.APPLIANCE].all.some((a) => a.name === recipe.appliance) ===
-      false
-    ) {
-      const applianceFilter = filterFactory("appliance", recipe.appliance);
-      applianceFilter.constructorDropdownDOM();
-      applianceFilter.constructorFilterDOM();
-      FILTERS[TYPES.APPLIANCE].all.push(applianceFilter);
-      FILTERS[TYPES.APPLIANCE].displayed.push(applianceFilter);
-    }
+  span.addEventListener("click", removeTag);
 
-    // USTENSIL filters
-    recipe.ustensils.forEach((ustensil) => {
-      if (
-        FILTERS[TYPES.USTENSIL].all.some((u) => u.name === ustensil) === false
-      ) {
-        const ustensilFilter = filterFactory("ustensil", ustensil);
-        ustensilFilter.constructorDropdownDOM();
-        ustensilFilter.constructorFilterDOM();
-        FILTERS[TYPES.USTENSIL].all.push(ustensilFilter);
-        FILTERS[TYPES.USTENSIL].displayed.push(ustensilFilter);
-      }
-    });
-  });
+  return span;
 }
 
 // ----------------------------------------------------------------------------------------
 
-async function getFiltersFromRecipes(recipes) {
-  recipes.forEach((recipe) => {
-    // INGREDIENT FILTERS
+// Construit tous les objets "filtres" à partir de la liste des recettes
+async function constructAllFilters() {
+  // Pour chaque recette...
+  RECIPES.ALL.forEach((recipe) => {
+    // ... récupère tous les nouveaux ingrédients
     recipe.ingredients.forEach((ingredient) => {
-      // Si l'ingrédient n'est pas dans la liste des filtres appliqués
       if (
         false ===
-        FILTERS[TYPES.INGREDIENT].applied.includes(ingredient.ingredient)
+        FILTERS[TYPES.INGREDIENT].all.some(
+          (f) => f.name === ingredient.ingredient
+        )
       ) {
-        // si l'ingrédient n'est pas déjà présent on l'insère
-        if (
-          false ===
-          FILTERS[TYPES.INGREDIENT].displayed.some(
-            (i) => i.name === ingredient.ingredient
-          )
-        ) {
-          // Récupère le filtre
-          const ingredientFilter = FILTERS[TYPES.INGREDIENT].all.find(
-            (i) => i.name === ingredient.ingredient
-          );
-          FILTERS[TYPES.INGREDIENT].displayed.push(ingredientFilter);
-        }
+        const ingredientFilter = filterFactory(
+          FILTERS[TYPES.INGREDIENT].type,
+          ingredient.ingredient
+        );
+        ingredientFilter.constructorDropdownMenuDOM();
+        ingredientFilter.constructorTagDOM();
+        FILTERS[TYPES.INGREDIENT].all.push(ingredientFilter);
+        // Lors de l"initialisation, tous les filtres (de toutes les recettes) sont affichés dans les menus dropdown
+        FILTERS[TYPES.INGREDIENT].dropdownMenu.push(ingredientFilter);
       }
     });
 
-    // APPLIANCE FILTERS
-    if (false === FILTERS[TYPES.APPLIANCE].applied.includes(recipe.appliance)) {
-      if (
-        FILTERS[TYPES.APPLIANCE].displayed.some(
-          (a) => a.name === recipe.appliance
-        ) === false
-      ) {
-        // Récupère le filtre
-        const applianceFilter = FILTERS[TYPES.APPLIANCE].all.find(
-          (a) => a.name === recipe.appliance
-        );
-        FILTERS[TYPES.APPLIANCE].displayed.push(applianceFilter);
-      }
+    // ... récupère tous les nouveaux appareils
+    if (
+      FILTERS[TYPES.APPLIANCE].all.some((f) => f.name === recipe.appliance) ===
+      false
+    ) {
+      const applianceFilter = filterFactory(
+        FILTERS[TYPES.APPLIANCE].type,
+        recipe.appliance
+      );
+      applianceFilter.constructorDropdownMenuDOM();
+      applianceFilter.constructorTagDOM();
+      FILTERS[TYPES.APPLIANCE].all.push(applianceFilter);
+      // Lors de l"initialisation, tous les filtres (de toutes les recettes) sont affichés dans les menus dropdown
+      FILTERS[TYPES.APPLIANCE].dropdownMenu.push(applianceFilter);
     }
 
-    // USTENSIL FILTERS
+    // ... récupère tous les nouveaux ustensiles
     recipe.ustensils.forEach((ustensil) => {
-      if (false === FILTERS[TYPES.USTENSIL].applied.includes(ustensil)) {
-        if (
-          FILTERS[TYPES.USTENSIL].displayed.some((u) => u.name === ustensil) ===
-          false
-        ) {
-          // Récupère le filtre
-          const ustensilFilter = FILTERS[TYPES.USTENSIL].all.find(
-            (u) => u.name === ustensil
-          );
-          FILTERS[TYPES.USTENSIL].displayed.push(ustensilFilter);
-        }
+      if (
+        FILTERS[TYPES.USTENSIL].all.some((f) => f.name === ustensil) === false
+      ) {
+        const ustensilFilter = filterFactory(
+          FILTERS[TYPES.USTENSIL].type,
+          ustensil
+        );
+        ustensilFilter.constructorDropdownMenuDOM();
+        ustensilFilter.constructorTagDOM();
+        FILTERS[TYPES.USTENSIL].all.push(ustensilFilter);
+        // Lors de l"initialisation, tous les filtres (de toutes les recettes) sont affichés dans les menus dropdown
+        FILTERS[TYPES.USTENSIL].dropdownMenu.push(ustensilFilter);
       }
     });
   });
 }
 
-// ----------------------------------------------------------------------------------------
+// --------------- OUVERTURE ET FERMETURE DES DROPDOWN MENUS -------------------
+// -----------------------------------------------------------------------------
 
-async function initDropdownMenuHandlers() {
+async function initDropdownMenuEventListeners() {
   FILTERS.forEach((filters) => {
     const dropdownMenuButton = document.getElementById(
       `${filters.type}DropdownButton`
@@ -205,25 +205,24 @@ function openDropdownMenuHandler(e) {
   const type = e.target.dataset.type;
   const filters = FILTERS.find((filters) => filters.type === type);
 
-  displayFilters(type, filters.displayed);
+  displayDropdownMenuFilters(type, filters.dropdownMenu);
 }
 
 function closeDropdownMenuHandler(e) {
   const type = e.target.dataset.type;
 
-  removeFiltersFromDOM(type);
+  removeDropdownMenuFilters(type);
 }
 
-// ----------------------------------------------------------------------------------------
-
-async function displayFilters(type, filters) {
+// Affiche les filtres dans le dropdown menu du DOM
+async function displayDropdownMenuFilters(type, filters) {
   const dropdownContainer = document.querySelector(
     `.${type}s-dropdown .dropdown-filters`
   );
 
   // Insère tous les filtres dans le DOM
   filters.forEach((filter) => {
-    dropdownContainer.appendChild(filter.dropdownDOM);
+    dropdownContainer.appendChild(filter.dropdownMenuDOM);
   });
 
   // Supprime toutes les classes CSS précédemment appliquées au dropdown menu
@@ -261,9 +260,8 @@ async function displayFilters(type, filters) {
   }
 }
 
-// ----------------------------------------------------------------------------------------
-
-async function removeFiltersFromDOM(type) {
+// Supprime les filtres du dropdown menu du DOM
+async function removeDropdownMenuFilters(type) {
   const dropdownMenu = document.querySelector(
     `.${type}s-dropdown .dropdown-menu`
   );
@@ -295,87 +293,132 @@ async function removeFiltersFromDOM(type) {
   dropdownMenu.classList.remove("singlecol1");
 }
 
+// ---------------------------------------------------------------------------------------
+
 // Update filters lists
-async function updateFiltersLists(recipes) {
+async function updateDropdownMenus(recipes) {
+  // Vide les listes des filtres des dropdown menus
   FILTERS.forEach((filters) => {
-    filters.displayed.splice(0, filters.displayed.length);
+    filters.dropdownMenu = [];
   });
 
+  // Remplit ces listes avec les filtres trouvés dans les recettes en argument
   getFiltersFromRecipes(recipes);
 }
 
-function displayFilterTag(type, name) {
-  const filters = FILTERS.find((filters) => filters.type === type);
+// Récupère tous les filtres des recettes et les insère dans les listes des dropdown menus
+async function getFiltersFromRecipes(recipes) {
+  // Pour chaque recette de la liste...
+  recipes.forEach((recipe) => {
+    // ... récupère les ingrédients
+    recipe.ingredients.forEach((ingredient) => {
+      // Si l'ingrédient n'est pas déjà dans la liste des filtres appliqués
+      if (
+        false ===
+        FILTERS[TYPES.INGREDIENT].tags.some(
+          (f) => f.name === ingredient.ingredient
+        )
+      ) {
+        // ET si l'ingrédient n'est pas déjà affiché dans le dropdown menu
+        if (
+          false ===
+          FILTERS[TYPES.INGREDIENT].dropdownMenu.some(
+            (f) => f.name === ingredient.ingredient
+          )
+        ) {
+          // Récupère le filtre
+          const ingredientFilter = FILTERS[TYPES.INGREDIENT].all.find(
+            (i) => i.name === ingredient.ingredient
+          );
+          // Et linsère le filtre dans la liste du dropdown menu
+          FILTERS[TYPES.INGREDIENT].dropdownMenu.push(ingredientFilter);
+        }
+      }
+    });
 
-  const buttonDOM = document.createElement("button");
-  buttonDOM.classList.add("btn");
-  buttonDOM.classList.add(`btn-${filters.color}`);
-  buttonDOM.classList.add("text-white");
-  buttonDOM.classList.add("fw-bold");
-  buttonDOM.classList.add("shadow-none");
-  buttonDOM.classList.add("disabled");
-  buttonDOM.setAttribute("type", "button");
-  buttonDOM.setAttribute("data-type", type);
+    // Idem pour les filtres "appareil"
+    if (
+      false ===
+      FILTERS[TYPES.APPLIANCE].tags.some((f) => f.name === recipe.appliance)
+    ) {
+      if (
+        FILTERS[TYPES.APPLIANCE].dropdownMenu.some(
+          (a) => a.name === recipe.appliance
+        ) === false
+      ) {
+        // Récupère le filtre
+        const applianceFilter = FILTERS[TYPES.APPLIANCE].all.find(
+          (a) => a.name === recipe.appliance
+        );
+        FILTERS[TYPES.APPLIANCE].dropdownMenu.push(applianceFilter);
+      }
+    }
 
-  buttonDOM.textContent = name;
-
-  const span = constructFilterTagClosureSpan();
-  buttonDOM.appendChild(span);
-
-  document.querySelector(".filters-applied-container").appendChild(buttonDOM);
-
-  return buttonDOM;
-}
-
-function constructFilterTagClosureSpan() {
-  const span = document.createElement("span");
-  span.classList.add("fa-solid");
-  span.classList.add("fa-xmark");
-  span.classList.add("fa-xs");
-
-  return span;
-}
-
-function removeFilter(e) {
-  const filterDOM = e.target.parentElement;
-  const type = filterDOM.dataset.type;
-  const filter = filterDOM.textContent;
-
-  console.log(`----------------------------------------------------------`);
-  console.log(`$$$ removeFilter => type: ${type} / filter: ${filter}`);
-
-  document.querySelector(".filters-applied-container").removeChild(filterDOM);
-
-  updateRecipesWithRemovedFilter(type, filter);
-}
-
-function selectFilter(e) {
-  const type = e.target.dataset.type;
-  const filter = e.target.textContent;
-  const filters = FILTERS.find((filters) => filters.type === type);
-
-  console.log(`----------------------------------------------------------`);
-  console.log(
-    `$$$ selectFilter => type: ${type} / filter: ${filter}`,
-    filters.applied
-  );
-
-  // Si le filtre n'est pas déjà appliqué
-  if (!filters.applied.includes(filter)) {
-    const filterDOM = displayFilterTag(type, filter);
-    filterDOM.querySelector("span").addEventListener("click", removeFilter);
-
-    updateRecipesWithAddedFilter(type, filter);
-
-    // removeFilterFromDropdown(type, filter);
-  }
+    // Idem pour les filtres "ustensil"
+    recipe.ustensils.forEach((ustensil) => {
+      if (
+        false === FILTERS[TYPES.USTENSIL].tags.some((f) => f.name === ustensil)
+      ) {
+        if (
+          FILTERS[TYPES.USTENSIL].dropdownMenu.some(
+            (u) => u.name === ustensil
+          ) === false
+        ) {
+          // Récupère le filtre
+          const ustensilFilter = FILTERS[TYPES.USTENSIL].all.find(
+            (u) => u.name === ustensil
+          );
+          FILTERS[TYPES.USTENSIL].dropdownMenu.push(ustensilFilter);
+        }
+      }
+    });
+  });
 }
 
 // ----------------------------------------------------------------------------------------
 
-async function initFilters() {
-  // Construit les filters et initialise les listes de filtres
-  await constructAllFilters();
+function addNewTag(e) {
+  const type = e.target.dataset.type;
+  const name = e.target.textContent;
 
-  initDropdownMenuHandlers();
+  // Récupère le filtre sélectionné dans le dropdownmenu
+  const dropdownMenuFilters = FILTERS.find(
+    (filters) => filters.type === type
+  ).dropdownMenu;
+  const filter = dropdownMenuFilters.find((filters) => filters.name === name);
+
+  console.log(`----------------------------------------------------------`);
+  console.log(`$$$ addNewTag => type: ${type} / name: ${name}`, filter);
+
+  console.log(`filter.dropdownMenuDOM : `, filter.dropdownMenuDOM);
+  console.log(`filter.tagDOM : `, filter.tagDOM);
+
+  // Affiche le tag dans le DOM
+  document.querySelector(".tags-container").appendChild(filter.tagDOM);
+
+  // Insère dans le tag dans la liste des tags
+  const tags = FILTERS.find((filters) => filters.type === type).tags;
+  tags.push(filter);
+
+  // Met à jour la liste des recettes affichées avec le nouveau tag
+  updateRecipesWithNewTag(filter);
+}
+
+function removeTag(e) {
+  const tagDOM = e.target.parentElement;
+  const type = tagDOM.dataset.type;
+  const name = tagDOM.textContent;
+
+  // Récupère le filtre sélectionné dans les tags
+  const tags = FILTERS.find((filtersLists) => filtersLists.type === type).tags;
+  const filter = tags.find((filters) => filters.name === name);
+
+  console.log(`----------------------------------------------------------`);
+  console.log(`$$$ removeTag => type: ${type} / name: ${name}`, filter);
+
+  // Supprime le tag du DOM
+  document.querySelector(".tags-container").removeChild(tagDOM);
+
+  // Met à jour la liste des recettes affichées sans le tag supprimé
+  updateRecipesWithRemovedTag(filter, tags);
 }

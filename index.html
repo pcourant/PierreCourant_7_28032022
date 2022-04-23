@@ -24,12 +24,12 @@
     <!-- Header -->
     <header role="banner" class="container text-center">
       <a class="navbar-brand d-block mx-0 mt-5 mb-3 p-0" href="./index.html">
-        <!-- <img src="./assets/images/logo.png" alt="Le logo du site" /> -->
         <img src="/assets/icons/logo.svg" alt="Le logo du site" />
         <h1 class="m-0 p-0">Les petits plats</h1>
       </a>
     </header>
 
+    <!-- MAIN -->
     <main class="">
       <section class="search-section container">
         <form class="form-inline">
@@ -53,28 +53,8 @@
             /></span>
           </div>
         </form>
-        <div class="filters-applied-container container d-flex flex-wrap p-0">
-          <!-- <button
-            class="btn btn-secondary text-white fw-bold shadow-none disabled"
-            type="button"
-          >
-            Coco
-            <span class="fa-solid fa-xmark fa-xs"></span>
-          </button>
-          <button
-            class="btn btn-success text-white fw-bold shadow-none disabled"
-            type="button"
-          >
-            Four
-            <span class="fa-solid fa-xmark fa-xs"></span>
-          </button>
-          <button
-            class="btn btn-danger text-white fw-bold shadow-none disabled"
-            type="button"
-          >
-            couteau
-            <span class="fa-solid fa-xmark fa-xs"></span>
-          </button> -->
+        <div class="tags-container container d-flex flex-wrap p-0">
+          <!-- Se remplit dynamiquement de tags sélectionnés  -->
         </div>
         <!-- FILTERS DROPDOWN -->
         <div class="filters-search-container container d-flex flex-wrap p-0">
@@ -110,7 +90,9 @@
               </div>
               <div
                 class="dropdown-filters d-flex flex-column flex-wrap overflow-hidden"
-              ></div>
+              >
+                <!-- Se remplit dynamiquement de filtres sélectionnables  -->
+              </div>
             </div>
           </div>
           <div class="dropdown appliances-dropdown">
@@ -145,7 +127,9 @@
               </div>
               <div
                 class="dropdown-filters d-flex flex-column flex-wrap overflow-hidden"
-              ></div>
+              >
+                <!-- Se remplit dynamiquement de filtres sélectionnables  -->
+              </div>
             </div>
           </div>
           <div class="dropdown ustensils-dropdown">
@@ -180,102 +164,16 @@
               </div>
               <div
                 class="dropdown-filters d-flex flex-column flex-wrap overflow-hidden"
-              ></div>
+              >
+                <!-- Se remplit dynamiquement de filtres sélectionnables  -->
+              </div>
             </div>
           </div>
         </div>
       </section>
       <section class="recipes-section container">
         <div class="row g-4 g-md-4 g-lg-5 g-xl-4 g-xxl-5">
-          <!-- MODÈLE DE CARTE -->
-          <!-- <div class="col-12 col-md-6 col-xl-4">
-            <article class="card border-0 bg-light">
-              <a href="">
-                <img
-                  src="./assets/images/recipe.jpg"
-                  alt=""
-                  class="card-img-top"
-                />
-              </a>
-              <div
-                class="card-body container flex-grow-0 p-0 m-0 overflow-hidden"
-              >
-                <div class="card-body__title-time row w-100 m-0">
-                  <div class="col-8 p-0">
-                    <h2
-                      class="card-title col m-0 p-0 fw-normal d-inline-block align-text-bottom"
-                    >
-                      LIMONADE DE COCO LIMONADE DE COCO
-                    </h2>
-                  </div>
-                  <div class="card-body__time col-4 p-0 text-end">
-                    <img
-                      src="./assets/icons/time.svg"
-                      width="20px"
-                      height="20px"
-                      alt=""
-                      class="d-inline-block align-text-bottom"
-                    />
-                    <p
-                      class="card-text fw-bold ms-2 d-inline-block align-text-bottom"
-                    >
-                      110 min
-                    </p>
-                  </div>
-                </div>
-                <div class="card-body__ingredients-instructions row w-100 m-0">
-                  <div class="col m-0 p-0">
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                    <p class="card-text small fw-bold m-0">
-                      Lait de coco: <span class="fw-normal">400mL</span>
-                    </p>
-                  </div>
-                  <div class="card-body__recipe__instructions col m-0 p-0">
-                    <p class="card-text small lh-sm">
-                      Mettre les glaçons à votre goût dans le blender, ajouter
-                      le lait, la crème de coco, le jus de 2 citrons et le
-                      sucre. Mixer jusqu'à avoir la consistence désirée / Mettre
-                      les glaçons à votre goût dans le blender, ajouter le lait,
-                      la crème de coco, le jus de 2 citrons et le sucre. Mixer
-                      jusqu'à avoir la consistence désirée / Mettre les glaçons
-                      à votre goût dans le blender, ajouter le lait, la crème de
-                      coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir
-                      la consistence désirée
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div> -->
+          <!-- Se remplit dynamiquement de cartes de recette  -->
         </div>
       </section>
     </main>
