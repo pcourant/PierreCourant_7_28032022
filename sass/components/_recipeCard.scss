@@ -1,0 +1,39 @@
+article {
+  width: 100%;
+  height: 20.22rem;
+
+  & .card-img-top {
+    height: 9.88rem;
+  }
+
+  & .card-body {
+    height: 9.5rem; // 20.22rem - 9.88rem - 15px (bottom margin = 0.94rem)
+
+    & .card-body__title-time {
+      padding: 1.111rem;
+    }
+
+    & .card-body__ingredients-instructions {
+      padding: 0 1rem 0.833rem 1.111rem;
+
+      & .card-body__recipe__ingredients {
+        padding: 0 1.11rem 0 0;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      & .card-body__recipe__instructions {
+        margin: 0 0 0 1.11rem;
+        & p {
+          font-family: "Roboto", sans-serif;
+          display: -webkit-box;
+          -webkit-line-clamp: 9;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          hyphens: auto;
+          word-break: none;
+        }
+      }
+    }
+  }
+}

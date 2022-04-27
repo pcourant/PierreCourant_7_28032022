@@ -19,6 +19,7 @@ $line-height-base: 1.2;
 $line-height-sm: 1;
 $line-height-lg: 1.5;
 
+// Margin, padding, gap spacing
 $spacer: 1rem;
 $spacers: (
   0: 0,
@@ -27,21 +28,20 @@ $spacers: (
   3: $spacer,
   4: $spacer * 1.333,
   5: $spacer * 2.333,
+  // Ajout d'une variable supplémentaire
   6: $spacer * 4.55,
 );
 
-// $enable-negative-margins: true;
+// Disable le changement de la valeur 1rem en fonction de la taille d'écran
 $enable-rfs: false;
+// Disbale les effets d'ombres
 $enable-shadows: false;
 
+// Change les couleurs du thème
 $primary: #d04f4f;
 $secondary: #3282f7;
 $success: #68d9a4;
 $danger: #ed6454;
-
-// $dark: #04040C;
-// $headings-color: #284876;
-// $card-bg: #FCFCFC;
 $light: #e7e7e7;
 
 $input-placeholder-color: rgba(0, 0, 0, 0.25);

@@ -1,0 +1,166 @@
+$margin-right-multicol3: 28.72rem;
+$margin-right-multicol2: 16.357rem;
+$margin-right-singlecol1: 4.016rem;
+$dropdownmenu-multicol3: 37.06rem;
+$dropdownmenu-multicol2: 24.707rem;
+$dropdownmenu-singlecol1: 12.351rem;
+
+.filters-search-container {
+  margin: 0.833rem 0 1.389rem;
+  row-gap: 1.11rem;
+
+  & .dropdown {
+    & button {
+      width: 9.445rem;
+      margin-right: 1.11rem;
+
+      &.margin-right-multicol3 {
+        margin-right: $margin-right-multicol3;
+        @media (max-width: 768px) {
+          margin-right: $margin-right-multicol2;
+        }
+        @media (max-width: 470px) {
+          margin-right: $margin-right-singlecol1;
+        }
+      }
+
+      &.margin-right-multicol2 {
+        margin-right: $margin-right-multicol2;
+        @media (max-width: 470px) {
+          margin-right: $margin-right-singlecol1;
+        }
+      }
+
+      &.margin-right-singlecol1 {
+        margin-right: $margin-right-singlecol1;
+      }
+    }
+
+    & .dropdown-menu {
+      &.multicol3 {
+        width: $dropdownmenu-multicol3;
+        @media (max-width: 768px) {
+          width: $dropdownmenu-multicol2;
+        }
+        @media (max-width: 470px) {
+          width: $dropdownmenu-singlecol1;
+        }
+      }
+
+      &.multicol2 {
+        width: $dropdownmenu-multicol2;
+        @media (max-width: 470px) {
+          width: $dropdownmenu-singlecol1;
+        }
+      }
+
+      &.singlecol1 {
+        width: $dropdownmenu-singlecol1;
+      }
+
+      &.show {
+        display: flex;
+        flex-direction: column;
+      }
+
+      & .dropdown-search-container {
+        margin-top: 0.5rem;
+        padding-right: 30px;
+
+        & input {
+          background-color: inherit;
+          color: inherit;
+          border: none;
+          padding: 1.22rem 0;
+
+          &:focus-visible {
+            outline: none;
+          }
+
+          &::placeholder {
+            color: inherit;
+            opacity: 0.5;
+          }
+        }
+
+        & span.fa-chevron-up {
+          cursor: pointer;
+        }
+      }
+
+      & .dropdown-filters {
+        &.multiline10 {
+          height: 18.4rem;
+        }
+        &.multiline9 {
+          height: 16.6rem;
+        }
+        &.multiline8 {
+          height: 14.8rem;
+        }
+        &.multiline7 {
+          height: 13.1rem;
+        }
+        &.multiline6 {
+          height: 11.4rem;
+        }
+        &.multiline5 {
+          height: 9.7rem;
+        }
+        &.multiline4 {
+          height: 7.9rem;
+        }
+        &.multiline3 {
+          height: 6.1rem;
+        }
+        &.multiline2 {
+          height: 4.3rem;
+        }
+        &.multiline1 {
+          height: 2.5rem;
+        }
+        &.multiline0 {
+          height: 0.4rem;
+        }
+
+        & .dropdown-item {
+          width: 12.351rem;
+          margin: 0;
+          color: white;
+          padding-top: 0.278rem;
+          padding-bottom: 0.278rem;
+
+          cursor: pointer;
+
+          &:active,
+          &:hover,
+          &:focus {
+            background-color: #e9ecef6b;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.ingredients-dropdown {
+  & .dropdown-menu {
+    background-color: $secondary;
+  }
+}
+
+.appliances-dropdown {
+  & .dropdown-menu {
+    background-color: $success;
+  }
+}
+
+.ustensils-dropdown {
+  & .dropdown-menu {
+    background-color: $danger;
+  }
+}

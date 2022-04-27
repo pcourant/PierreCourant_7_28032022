@@ -12241,57 +12241,6 @@ fieldset:disabled .btn {
   }
 }
 
-header a:hover {
-  color: #d04f4f;
-}
-
-article {
-  width: 100%;
-  height: 20.22rem;
-}
-
-article .card-img-top {
-  height: 9.88rem;
-}
-
-article .card-body {
-  height: 9.5rem;
-}
-
-article .card-body .card-body__title-time {
-  padding: 1.111rem;
-}
-
-article .card-body .card-body__ingredients-instructions {
-  padding: 0 1rem 0.833rem 1.111rem;
-}
-
-article .card-body .card-body__ingredients-instructions .card-body__recipe__ingredients {
-  padding: 0 1.11rem 0 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-article .card-body .card-body__ingredients-instructions .card-body__recipe__instructions {
-  margin: 0 0 0 1.11rem;
-}
-
-article .card-body .card-body__ingredients-instructions .card-body__recipe__instructions p {
-  font-family: "Roboto", sans-serif;
-  display: -webkit-box;
-  -webkit-line-clamp: 9;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  -webkit-hyphens: auto;
-      -ms-hyphens: auto;
-          hyphens: auto;
-  word-break: none;
-}
-
-section.search-section form {
-  margin-bottom: 0.278rem;
-}
-
 .tags-container {
   -webkit-column-gap: 0.56rem;
           column-gap: 0.56rem;
@@ -12325,6 +12274,10 @@ section.search-section form {
 .tags-container button span:hover {
   cursor: pointer;
   color: inherit;
+}
+
+section.search-section form {
+  margin-bottom: 0.278rem;
 }
 
 .filters-search-container {
@@ -12443,6 +12396,10 @@ section.search-section form {
   opacity: 0.5;
 }
 
+.filters-search-container .dropdown .dropdown-menu .dropdown-search-container span.fa-chevron-up {
+  cursor: pointer;
+}
+
 .filters-search-container .dropdown .dropdown-menu .dropdown-filters.multiline10 {
   height: 18.4rem;
 }
@@ -12493,6 +12450,11 @@ section.search-section form {
   color: white;
   padding-top: 0.278rem;
   padding-bottom: 0.278rem;
+  cursor: pointer;
+}
+
+.filters-search-container .dropdown .dropdown-menu .dropdown-filters .dropdown-item:active, .filters-search-container .dropdown .dropdown-menu .dropdown-filters .dropdown-item:hover, .filters-search-container .dropdown .dropdown-menu .dropdown-filters .dropdown-item:focus {
+  background-color: #e9ecef6b;
 }
 
 .dropdown-toggle::after {
@@ -12509,6 +12471,53 @@ section.search-section form {
 
 .ustensils-dropdown .dropdown-menu {
   background-color: #ed6454;
+}
+
+article {
+  width: 100%;
+  height: 20.22rem;
+}
+
+article .card-img-top {
+  height: 9.88rem;
+}
+
+article .card-body {
+  height: 9.5rem;
+}
+
+article .card-body .card-body__title-time {
+  padding: 1.111rem;
+}
+
+article .card-body .card-body__ingredients-instructions {
+  padding: 0 1rem 0.833rem 1.111rem;
+}
+
+article .card-body .card-body__ingredients-instructions .card-body__recipe__ingredients {
+  padding: 0 1.11rem 0 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+article .card-body .card-body__ingredients-instructions .card-body__recipe__instructions {
+  margin: 0 0 0 1.11rem;
+}
+
+article .card-body .card-body__ingredients-instructions .card-body__recipe__instructions p {
+  font-family: "Roboto", sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 9;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+  word-break: none;
+}
+
+header a:hover {
+  color: #d04f4f;
 }
 
 .hidden {

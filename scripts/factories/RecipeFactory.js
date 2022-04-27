@@ -45,7 +45,7 @@ function recipeFactory(data) {
     const link = document.createElement("a");
     article.appendChild(link);
     link.setAttribute("href", "#");
-    // link.classList.add("stretched-link"); TODO
+    link.classList.add("stretched-link");
     const imageCardTop = document.createElement("img");
     link.appendChild(imageCardTop);
     imageCardTop.setAttribute("src", "./assets/images/recipe.jpg");
