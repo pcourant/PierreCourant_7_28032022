@@ -1,5 +1,5 @@
-import { initRecipes } from "../factories/RecipeFactory.js";
-import { initFilters } from "../factories/FilterFactory.js";
+import { initRecipes } from "../components/recipesManaging.js";
+import { initFilters } from "../components/filtersManaging.js";
 import { initMainSearch } from "../components/recipesSearch.js";
 import { initFiltersSearch } from "../components/filtersSearch.js";
 

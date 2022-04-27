@@ -1,10 +1,10 @@
+import { RECIPES } from "../factories/RecipeFactory.js";
 import {
-  RECIPES,
   displayRecipes,
   displayRecipe,
   removeAllRecipesFromDOM,
-} from "../factories/RecipeFactory.js";
-import { updateDropdownMenus } from "../factories/FilterFactory.js";
+} from "../components/recipesManaging.js";
+import { updateDropdownMenus } from "../components/filtersManaging.js";
 export { initMainSearch };
 
 // Initialise l'event listener de la barre de recherche
@@ -27,6 +27,7 @@ async function updateRecipes(e) {
     RECIPES.SEARCHED = RECIPES.ALL.slice(0, RECIPES.ALL.length);
     // Affiche les recettes filtrées par l'input de l'utilisateur
     await displayRecipes(RECIPES.FILTERED);
+    document.getElementById("norecipe-text").classList.add("hidden");
   } else {
     await searchAndDisplay(
       input,
@@ -87,5 +88,11 @@ async function searchAndDisplay(
         displayRecipe(recipe);
       }
     }
+  }
+
+  if (RECIPES.DISPLAYED.length === 0) {
+    document.getElementById("norecipe-text").classList.remove("hidden");
+  } else {
+    document.getElementById("norecipe-text").classList.add("hidden");
   }
 }

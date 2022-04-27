@@ -1,15 +1,14 @@
+import { RECIPES } from "../factories/RecipeFactory.js";
 import {
-  RECIPES,
   displayRecipe,
   removeAllRecipesFromDOM,
-} from "../factories/RecipeFactory.js";
+} from "../components/recipesManaging.js";
+import { TYPES, FILTERS } from "../factories/FilterFactory.js";
 import {
-  TYPES,
-  FILTERS,
   displayDropdownMenuFilters,
   removeDropdownMenuFilters,
   updateDropdownMenus,
-} from "../factories/FilterFactory.js";
+} from "../components/filtersManaging.js";
 
 export {
   updateRecipesWithNewTag,
@@ -196,7 +195,10 @@ async function filterAndDisplay(
   }
 
   console.log(`recipesFILTERED: `, recipesFILTERED);
-  console.log(`RECIPES-DISPLAYED: `, RECIPES.DISPLAYED);
+  console.log(
+    `RECIPES.DISPLAYED length (${RECIPES.DISPLAYED.length}): `,
+    RECIPES.DISPLAYED
+  );
 }
 
 // Filtre toutes les recettes avec les Tags et les affiche

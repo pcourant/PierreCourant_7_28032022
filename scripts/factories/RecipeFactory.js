@@ -1,11 +1,4 @@
-import { RECIPES_DATABASE } from "../data/recipes.js";
-export {
-  RECIPES,
-  initRecipes,
-  displayRecipes,
-  displayRecipe,
-  removeAllRecipesFromDOM,
-};
+export { RECIPES, recipeFactory, getAllRecipes };
 
 const RECIPES = {
   // Tableau contenant tous les objets "recette" de la database du fichier recipes.js
@@ -17,14 +10,6 @@ const RECIPES = {
   // Intersection des deux résultats précédents contenant toutes les recettes affichées dans le DOM
   DISPLAYED: [],
 };
-
-// Construit toutes les recettes et les affiche dans le DOM
-async function initRecipes() {
-  // Récupère les recettes du fichier DATA
-  await getAllRecipes(RECIPES_DATABASE);
-  // Affiche les recettes
-  displayRecipes(RECIPES.ALL);
-}
 
 // Crée l'objet "recette" à partir du fichier DATA
 function recipeFactory(data) {
@@ -60,7 +45,7 @@ function recipeFactory(data) {
     const link = document.createElement("a");
     article.appendChild(link);
     link.setAttribute("href", "#");
-    link.classList.add("stretched-link");
+    // link.classList.add("stretched-link"); TODO
     const imageCardTop = document.createElement("img");
     link.appendChild(imageCardTop);
     imageCardTop.setAttribute("src", "./assets/images/recipe.jpg");
@@ -85,21 +70,18 @@ function recipeFactory(data) {
     cardBodyTitleTime.classList.add("w-100");
     cardBodyTitleTime.classList.add("m-0");
 
-    // Création de la colonne "Titre"
-    const columnTitle = document.createElement("div");
-    cardBodyTitleTime.appendChild(columnTitle);
-    columnTitle.classList.add("col-8");
-    columnTitle.classList.add("p-0");
     // Ajout du titre
     const h2 = document.createElement("h2");
-    columnTitle.appendChild(h2);
-    h2.classList.add("col");
+    cardBodyTitleTime.appendChild(h2);
+    h2.classList.add("col-8");
     h2.classList.add("card-title");
     h2.classList.add("m-0");
     h2.classList.add("p-0");
     h2.classList.add("fw-normal");
     h2.classList.add("d-inline-block");
     h2.classList.add("align-text-bottom");
+    h2.classList.add("overflow-hidden");
+    h2.classList.add("text-truncate");
     h2.textContent = name;
 
     // Création de la colonne "Temps"
@@ -143,9 +125,11 @@ function recipeFactory(data) {
     // Création de la colonne "Ingrédients"
     const columnIngredients = document.createElement("div");
     cardBodyIngredientsInstructions.appendChild(columnIngredients);
+    columnIngredients.classList.add("card-body__recipe__ingredients");
     columnIngredients.classList.add("col");
     columnIngredients.classList.add("m-0");
-    columnIngredients.classList.add("p-0");
+    // columnIngredients.classList.add("p-0");
+
     // Ajout des ingrédients
     ingredients.forEach((element) => {
       const ingredientParagraph = document.createElement("p");
@@ -154,6 +138,7 @@ function recipeFactory(data) {
       ingredientParagraph.classList.add("small");
       ingredientParagraph.classList.add("fw-bold");
       ingredientParagraph.classList.add("m-0");
+      ingredientParagraph.classList.add("text-truncate");
       ingredientParagraph.textContent = `${element.ingredient}`;
 
       if (element.quantity !== undefined) {
@@ -233,39 +218,4 @@ async function getAllRecipes(recipesDATA) {
     RECIPES.SEARCHED.push(recipe);
     RECIPES.FILTERED.push(recipe);
   });
-}
-
-// Affiche toutes les cartes recettes dans le DOM
-async function displayRecipes(recipes) {
-  recipes.forEach((recipe) => {
-    displayRecipe(recipe);
-  });
-}
-
-// Affiche la carte recette dans le DOM
-async function displayRecipe(recipe) {
-  recipe.displayRecipeCard();
-  // Sauvegarde la recette affichée dans un tableau
-  RECIPES.DISPLAYED.push(recipe);
-}
-
-// Supprime toutes les cartes recettes dans le DOM
-async function removeAllRecipesFromDOM() {
-  const recipesSection = document.querySelector("section.recipes-section");
-  const recipesContainer = document.querySelector(".recipes-section .row");
-
-  recipesSection.removeChild(recipesContainer);
-
-  const newRecipesContainer = document.createElement("div");
-  newRecipesContainer.classList.add("row");
-  newRecipesContainer.classList.add("g-4");
-  newRecipesContainer.classList.add("g-md-4");
-  newRecipesContainer.classList.add("g-lg-5");
-  newRecipesContainer.classList.add("g-xl-4");
-  newRecipesContainer.classList.add("g-xxl-5");
-
-  recipesSection.appendChild(newRecipesContainer);
-
-  // Vide le tableau des recettes affichées
-  RECIPES.DISPLAYED = [];
 }
